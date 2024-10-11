@@ -1,0 +1,286 @@
+{
+  "CALIFORNIA": [
+     {
+      "key": "DCS",
+      "description": "Last name or surname of the cardholder.",
+      "sequence": 1
+    },
+    {
+      "key": "DDE",
+      "description": "Family name truncation (T = Truncated, N = Not truncated, U = Unknown).",
+      "sequence": 2
+    },
+    {
+      "key": "DAC",
+      "description": "First name of the cardholder.",
+      "sequence": 3
+    },
+    {
+      "key": "DDF",
+      "description": "First name truncation (T = Truncated, N = Not truncated, U = Unknown).",
+      "sequence": 4
+    },
+    {
+      "key": "DAD",
+      "description": "Middle name of the cardholder.",
+      "sequence": 5
+    },
+    {
+      "key": "DDG",
+      "description": "Middle name truncation (T = Truncated, N = Not truncated, U = Unknown).",
+      "sequence": 6
+    },
+    {
+      "key": "DCA",
+      "description": "Jurisdiction-specific vehicle class or group code.",
+      "sequence": 7
+    },
+    {
+      "key": "DCB",
+      "description": "Jurisdiction-specific endorsement codes.",
+      "sequence": 8
+    },
+    {
+      "key": "DCD",
+      "description": "Jurisdiction-specific restriction codes.",
+      "sequence": 9
+    },
+    {
+      "key": "DBD",
+      "description": "Document issue date (MMDDYYYY format).",
+      "sequence": 10
+    },
+    {
+      "key": "DBB",
+      "description": "Date of birth of the cardholder (MMDDYYYY format).",
+      "sequence": 11
+    },
+    {
+      "key": "DBA",
+      "description": "Document expiration date (MMDDYYYY format).",
+      "sequence": 12
+    },
+    {
+      "key": "DBC",
+      "description": "Gender of the cardholder (1 = Male, 2 = Female, 9 = Not specified).",
+      "sequence": 13
+    },
+    {
+      "key": "DAU",
+      "description": "Height of the cardholder (e.g., '073 IN' in inches).",
+      "sequence": 14
+    },
+    {
+      "key": "DAY",
+      "description": "Eye color of the cardholder (e.g., HAZ = Hazel, BLU = Blue).",
+      "sequence": 15
+    },
+    {
+      "key": "DAG",
+      "description": "Street address of the cardholder.",
+      "sequence": 16
+    },
+    {
+      "key": "DAI",
+      "description": "City of the cardholder's address.",
+      "sequence": 17
+    },
+    {
+      "key": "DAJ",
+      "description": "State of the cardholder's address.",
+      "sequence": 18
+    },
+    {
+      "key": "DAK",
+      "description": "Postal code of the cardholder's address.",
+      "sequence": 19
+    },
+    {
+      "key": "DCF",
+      "description": "Document discriminator, a unique identifier for the document.",
+      "sequence": 20
+    },
+    {
+      "key": "DCG",
+      "description": "Country code of the cardholder (USA = United States, CAN = Canada).",
+      "sequence": 21
+    },
+    {
+      "key": "DAW",
+      "description": "Weight of the cardholder in pounds.",
+      "sequence": 22
+    },
+    {
+      "key": "DAZ",
+      "description": "Hair color of the cardholder (e.g., BLK = Black, BLN = Blonde).",
+      "sequence": 23
+    },
+    {
+      "key": "DCK",
+      "description": "Audit information - identifying string for when, where, and by whom the document was made.",
+      "sequence": 24
+    },
+    {
+      "key": "DDA",
+      "description": "Indicates if the cardholder is an organ donor (1 = Yes).",
+      "sequence": 25
+    },
+    {
+      "key": "DDB",
+      "description": "Second occurrence of the document issue date (MMDDYYYY format).",
+      "sequence": 26
+    },
+    {
+      "key": "DDK",
+      "description": "Indicates if the cardholder is a veteran (1 = Yes).",
+      "sequence": 27
+    },
+    {
+      "key": "ZCZ",
+      "description": "Jurisdiction-specific field for additional information.",
+      "sequence": 28
+    },
+    {
+      "key": "ZCB",
+      "description": "Jurisdiction-specific field for additional information.",
+      "sequence": 29
+    },
+    {
+      "key": "ZCC",
+      "description": "Jurisdiction-specific field for additional information.",
+      "sequence": 30
+    },
+    {
+      "key": "ZCD",
+      "description": "Jurisdiction-specific field for additional information.",
+      "sequence": 31
+    }
+  ],
+  "GEORGIA": [
+    {
+      "key": "DCA",
+      "description": "Georgia License Class",
+      "sequence": 1
+    },
+    {
+      "key": "DCB",
+      "description": "Restrictions - Driver's Licenses Only",
+      "sequence": 2
+    },
+    {
+      "key": "DCD",
+      "description": "Endorsements - Driver's Licenses Only",
+      "sequence": 3
+    },
+    {
+      "key": "DBA",
+      "description": "Expiration Date",
+      "sequence": 4
+    },
+    {
+      "key": "DCS",
+      "description": "Card Holder's Last Name",
+      "sequence": 5
+    },
+    {
+      "key": "DCT",
+      "description": "Card Holder's Given Names",
+      "sequence": 6
+    },
+    {
+      "key": "DBD",
+      "description": "Card Issue Date",
+      "sequence": 7
+    },
+    {
+      "key": "DBB",
+      "description": "Card Holder's Date of Birth",
+      "sequence": 8
+    },
+    {
+      "key": "DBC",
+      "description": "Card Holder's Gender Code",
+      "sequence": 9
+    },
+    {
+      "key": "DAY",
+      "description": "Card Holder's Eye Color",
+      "sequence": 10
+    },
+    {
+      "key": "DAU",
+      "description": "Card Holder's Height in Inches",
+      "sequence": 11
+    },
+    {
+      "key": "DAG",
+      "description": "Card Holder's Street Address",
+      "sequence": 12
+    },
+    {
+      "key": "DAI",
+      "description": "Card Holder's City Address",
+      "sequence": 13
+    },
+    {
+      "key": "DAJ",
+      "description": "Card Holder's State Address",
+      "sequence": 14
+    },
+    {
+      "key": "DAK",
+      "description": "Card Holder's Postal Code",
+      "sequence": 15
+    },
+    {
+      "key": "DAQ",
+      "description": "Card Holder's Driver's License or ID Number",
+      "sequence": 16
+    },
+    {
+      "key": "DDA",
+      "description": "Real ID Compliance Marker",
+      "sequence": 17
+    },
+    {
+      "key": "DDD",
+      "description": "Limited Term Indicator",
+      "sequence": 18
+    },
+    {
+      "key": "ZGA",
+      "description": "Organ Donor Code",
+      "sequence": 19
+    },
+    {
+      "key": "ZGG",
+      "description": "Card Holder's Weight in Pounds",
+      "sequence": 20
+    },
+    {
+      "key": "ZGD",
+      "description": "Card Holder's County of Residence",
+      "sequence": 21
+    },
+    {
+      "key": "ZGI",
+      "description": "Card Holder’s Residential Street Address",
+      "sequence": 22
+    },
+    {
+      "key": "ZGJ",
+      "description": "Card Holder’s Residential City Address",
+      "sequence": 23
+    },
+    {
+      "key": "ZGJ",
+      "description": "Card Holder’s Residential State Address",
+      "sequence": 24
+    },
+    {
+      "key": "ZGL",
+      "description": "Card Holder’s Residential Postal Code",
+      "sequence": 25
+    }
+  ]
+}

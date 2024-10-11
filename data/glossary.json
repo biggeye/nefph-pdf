@@ -1,0 +1,200 @@
+[
+  {
+    "key": "DAA",
+    "description": "Full name of the cardholder (concatenation of first, middle, last names).",
+    "type": "string",
+    "maxLength": 120
+  },
+  {
+    "key": "DCS",
+    "description": "Last name or surname of the cardholder.",
+    "type": "string",
+    "maxLength": 40
+  },
+  {
+    "key": "DDE",
+    "description": "Family name truncation (T = Truncated, N = Not truncated, U = Unknown).",
+    "type": "string",
+    "enum": [ "T", "N", "U" ]
+  },
+  {
+    "key": "DAC",
+    "description": "First name of the cardholder.",
+    "type": "string",
+    "maxLength": 40
+  },
+  {
+    "key": "DDF",
+    "description": "First name truncation (T = Truncated, N = Not truncated, U = Unknown).",
+    "type": "string",
+    "enum": [ "T", "N", "U" ]
+  },
+  {
+    "key": "DAD",
+    "description": "Middle name of the cardholder.",
+    "type": "string",
+    "maxLength": 40
+  },
+  {
+    "key": "DDG",
+    "description": "Middle name truncation (T = Truncated, N = Not truncated, U = Unknown).",
+    "type": "string",
+    "enum": [ "T", "N", "U" ]
+  },
+  {
+    "key": "DBB",
+    "description": "Date of birth of the cardholder (MMDDYYYY format).",
+    "type": "string",
+    "pattern": "^(0[1-9]|1[0-2])([0-2][0-9]|3[01])\\d{4}$"
+  },
+  {
+    "key": "DBA",
+    "description": "Document expiration date (MMDDYYYY format).",
+    "type": "string",
+    "pattern": "^(0[1-9]|1[0-2])([0-2][0-9]|3[01])\\d{4}$"
+  },
+  {
+    "key": "DBC",
+    "description": "Gender of the cardholder (1 = Male, 2 = Female, 9 = Not specified).",
+    "type": "string",
+    "enum": [ "1", "2", "9" ]
+  },
+  {
+    "key": "DAU",
+    "description": "Height of the cardholder, e.g., '073 IN' (in inches).",
+    "type": "string",
+    "pattern": "^\\d{3} IN$"
+  },
+  {
+    "key": "DAY",
+    "description": "Eye color of the cardholder (e.g., HAZ = Hazel, BLU = Blue).",
+    "type": "string",
+    "maxLength": 3
+  },
+  {
+    "key": "DAG",
+    "description": "Street address of the cardholder.",
+    "type": "string",
+    "maxLength": 35
+  },
+  {
+    "key": "DAI",
+    "description": "City of the cardholder's address.",
+    "type": "string",
+    "maxLength": 35
+  },
+  {
+    "key": "DAJ",
+    "description": "State of the cardholder's address.",
+    "type": "string",
+    "enum": [ "CA", "NY", "TX", "FL", "etc." ]
+  },
+  {
+    "key": "DAK",
+    "description": "Postal code of the cardholder's address.",
+    "type": "string",
+    "pattern": "^\\d{9}$"
+  },
+  {
+    "key": "DAQ",
+    "description": "Customer ID number (driver's license number).",
+    "type": "string",
+    "pattern": "^[A-Z]\\d{7}$"
+  },
+  {
+    "key": "DCF",
+    "description": "Document discriminator, a unique identifier for the document.",
+    "type": "string",
+    "maxLength": 25
+  },
+  {
+    "key": "DCG",
+    "description": "Country code of the cardholder (USA = United States, CAN = Canada).",
+    "type": "string",
+    "enum": [ "USA", "CAN" ]
+  },
+  {
+    "key": "DCK",
+    "description": "Audit information - identifying string for when, where, and by whom the document was made.",
+    "type": "string",
+    "maxLength": 25
+  },
+  {
+    "key": "DBD",
+    "description": "Document issue date (MMDDYYYY format).",
+    "type": "string",
+    "pattern": "^(0[1-9]|1[0-2])([0-2][0-9]|3[01])\\d{4}$"
+  },
+  {
+    "key": "DCB",
+    "description": "Jurisdiction-specific endorsement codes (e.g., motorcycle, hazmat).",
+    "type": "string",
+    "maxLength": 12
+  },
+  {
+    "key": "DCA",
+    "description": "Jurisdiction-specific vehicle class or group code.",
+    "type": "string",
+    "maxLength": 6
+  },
+  {
+    "key": "DCD",
+    "description": "Jurisdiction-specific restriction codes (e.g., daylight-only driving).",
+    "type": "string",
+    "maxLength": 12
+  },
+  {
+    "key": "DAW",
+    "description": "Weight of the cardholder in pounds.",
+    "type": "string",
+    "pattern": "^\\d{3}$"
+  },
+  {
+    "key": "DAZ",
+    "description": "Hair color of the cardholder (BLK = Black, BLN = Blonde, etc.).",
+    "type": "string",
+    "maxLength": 3
+  },
+  {
+    "key": "DDA",
+    "description": "Indicates if the cardholder is an organ donor (1 = Yes).",
+    "type": "string",
+    "enum": [ "1" ]
+  },
+  {
+    "key": "DDB",
+    "description": "Second occurrence of the document issue date (MMDDYYYY format).",
+    "type": "string",
+    "pattern": "^(0[1-9]|1[0-2])([0-2][0-9]|3[01])\\d{4}$"
+  },
+  {
+    "key": "DDK",
+    "description": "Indicates if the cardholder is a veteran (1 = Yes).",
+    "type": "string",
+    "enum": [ "1" ]
+  },
+  {
+    "key": "ZCZ",
+    "description": "Jurisdiction-specific field for additional information.",
+    "type": "string",
+    "maxLength": 6
+  },
+  {
+    "key": "ZCB",
+    "description": "Jurisdiction-specific field for additional information.",
+    "type": "string",
+    "maxLength": 3
+  },
+  {
+    "key": "ZCC",
+    "description": "Jurisdiction-specific field for additional information.",
+    "type": "string",
+    "maxLength": 3
+  },
+  {
+    "key": "ZCD",
+    "description": "Jurisdiction-specific field for additional information.",
+    "type": "string",
+    "maxLength": 3
+  }
+]
