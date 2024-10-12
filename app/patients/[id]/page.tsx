@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { Link } from '@/components/link';
 
 export default function PatientDetails() {
     const supabase = createClient();
@@ -81,10 +82,6 @@ export default function PatientDetails() {
                             <h3 className="text-base font-semibold leading-6 text-gray-900">
                                 {patient.firstname} {patient.lastname}
                             </h3>
-                            <p className="text-sm text-gray-500">
-                                {/* Placeholder link, replace with actual data if needed */}
-                                <a href="#">{patient.username || patient.email}</a>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -92,7 +89,6 @@ export default function PatientDetails() {
                     <button
                         type="button"
                         className="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                        onClick={() => router.push(`/patients/edit/${id}`)}
                     >
                         <PhoneIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" />
                         <span>Schedule Placement</span>
@@ -100,10 +96,10 @@ export default function PatientDetails() {
                     <button
                         type="button"
                         className="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                        onClick={() => router.push(`/patients/edit/${id}`)}
+                       
                     >
                         <EnvelopeIcon aria-hidden="true" className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" />
-                        <span>Edit Patient</span>
+                        <Link href={`/patients/edit/${id}`}>Edit Patient</Link>
                     </button>
                 </div>
             </div>
@@ -111,17 +107,14 @@ export default function PatientDetails() {
                 {/* Personal Details */}
                 <div className="px-4 py-6 sm:px-6">
                     <h3 className="text-base font-semibold leading-7 text-gray-900">Patient Information</h3>
-                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Details about the patient.</p>
-                </div>
+                            </div>
                 <div className="border-t border-gray-100">
                     <dl className="divide-y divide-gray-100">
                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-900">Date of Birth</dt>
                             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{patient.dob}</dd>
-                        </div>
-                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt className="text-sm font-medium text-gray-900">Email</dt>
-                            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{patient.email || 'N/A'}</dd>
+                            <dt className="text-sm font-medium text-gray-900">Phone #</dt>
+                            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{patient.patient_phone || 'N/A'}</dd>
                         </div>
                     </dl>
                 </div>
@@ -135,16 +128,16 @@ export default function PatientDetails() {
                         <div className="border-t border-gray-100">
                             <dl className="divide-y divide-gray-100">
                                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-900">DL Number</dt>
-                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.dl_number}</dd>
-                                </div>
-                                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-900">Issue Date</dt>
-                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.issue_date}</dd>
-                                </div>
-                                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-900">Expiration Date</dt>
-                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.expiration_date}</dd>
+                                    <dt className="text-sm font-medium text-gray-900">DL Number: </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.dlnumber}</dd>
+                                    <dt className="text-sm font-medium text-gray-900">Issue Date: </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.issuedate}</dd>
+                                    <dt className="text-sm font-medium text-gray-900">Expiration Date: </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.expirydate}</dd>
+                                    <dt className="text-sm font-medium text-gray-900">ICN: </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.icn}</dd>
+                                    <dt className="text-sm font-medium text-gray-900">DD: </dt>
+                                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{driverLicense.dd}</dd>
                                 </div>
                             </dl>
                         </div>
@@ -155,8 +148,7 @@ export default function PatientDetails() {
                 <div className="border-t border-gray-100">
                     <div className="px-4 py-6 sm:px-6">
                         <h3 className="text-base font-semibold leading-7 text-gray-900">Patient History</h3>
-                        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Placements, insurance, medical records, etc.</p>
-                    </div>
+                            </div>
                     <div className="border-t border-gray-100">
                         <dl className="divide-y divide-gray-100">
                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
