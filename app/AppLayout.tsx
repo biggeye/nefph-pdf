@@ -14,9 +14,6 @@ import {
 } from '@heroicons/react/24/outline'
 import { ThemeProvider } from 'next-themes'
 import { ThemeSwitcher } from '@/components/theme-switcher'
-import HeaderAuth from '@/components/header-auth'
-import DeployButton from '@/components/deploy-button'
-import { hasEnvVars } from '@/utils/supabase/check-env-vars'
 import * as Headless from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 
@@ -32,16 +29,8 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-// Mock authentication hook (replace with actual logic)
-function useAuth() {
-    const [user, setUser] = useState(null) // Use your actual authentication logic here
-    const isAuthenticated = !!user
-    return { user, isAuthenticated, login: () => setUser({ name: 'John Doe' }), logout: () => setUser(null) }
-}
-
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const { user, isAuthenticated, login, logout } = useAuth()
     const router = useRouter()
 
     return (
@@ -102,71 +91,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </nav>
             </div>
 
-            {/* Topbar for Mobile with Avatar & Authentication */}
+            {/* Topbar for Mobile */}
             <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
                 <button type="button" onClick={() => setSidebarOpen(true)} className="-m-2.5 p-2.5 text-gray-400">
                     <Bars3Icon className="h-6 w-6" />
                     <span className="sr-only">Open sidebar</span>
                 </button>
                 <div className="flex-1 text-white text-sm font-semibold">Dashboard</div>
-
-                {/* Authentication Avatar */}
-                {isAuthenticated ? (
-                    <Headless.Menu as="div" className="relative">
-                        <Headless.Menu.Button className="flex items-center">
-                            <img
-                                src={user?.avatar || '/default-avatar.png'} // Replace with user's avatar or default
-                                alt="User Avatar"
-                                className="h-8 w-8 rounded-full"
-                            />
-                        </Headless.Menu.Button>
-                        <Headless.Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                        >
-                            <Headless.Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <div className="py-1">
-                                    <Headless.Menu.Item>
-                                        {({ active }) => (
-                                            <button
-                                                className={classNames(
-                                                    active ? 'bg-gray-100' : '',
-                                                    'block w-full text-left px-4 py-2 text-sm text-gray-700'
-                                                )}
-                                                onClick={() => router.push('/profile-settings')}
-                                            >
-                                                Profile Settings
-                                            </button>
-                                        )}
-                                    </Headless.Menu.Item>
-                                    <Headless.Menu.Item>
-                                        {({ active }) => (
-                                            <button
-                                                className={classNames(
-                                                    active ? 'bg-gray-100' : '',
-                                                    'block w-full text-left px-4 py-2 text-sm text-gray-700'
-                                                )}
-                                                onClick={logout}
-                                            >
-                                                Logout
-                                            </button>
-                                        )}
-                                    </Headless.Menu.Item>
-                                </div>
-                            </Headless.Menu.Items>
-                        </Headless.Transition>
-                    </Headless.Menu>
-                ) : (
-                    <button onClick={() => router.push('/sign-in')} className="flex items-center text-sm">
-                        <img src="/default-avatar.png" alt="Sign In" className="h-8 w-8 rounded-full" />
-                        <span className="ml-2">Login</span>
-                    </button>
-                )}
             </div>
 
             {/* Main Content Area */}
