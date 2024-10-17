@@ -1,11 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchPatients } from '@/utils/fetchPatientDetails';
+import { fetchPatients } from '@/utils/fetch/patientDetails';
 import PatientInsuranceDetails from '@/components/patients/PatientInsuranceDetails';
 import PatientPersonalDetails from '@/components/patients/PatientPersonalDetails';
 import PatientBenefitsSummary from '@/components/patients/PatientBenefitsSummary';
 
-export default function PatientOverview() {
+export default function Dashboard() {
+   // const { user, isAuthenticated } = useAuth();
     const [patients, setPatients] = useState([]);
     const [expandedPatientId, setExpandedPatientId] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -29,14 +30,35 @@ export default function PatientOverview() {
 
     return (
         <div className="p-4">
-            {/* Header Section with Stats */}
-            <header>
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">Patient Overview</h1>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Total Patients: {patients.length}</p>
+            {/* Dashboard Header Section */}
+            <header className="mb-6">
+                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Welcome</h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    Here's a summary of the latest activity.
+                </p>
+
+                {/* Stats Overview */}
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Total Patients</p>
+                        <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{patients.length}</p>
+                    </div>
+
+                    <div className="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Total Facilities</p>
+                        <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">15</p> {/* Static for now */}
+                    </div>
+
+                    <div className="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Total Calendar Events</p>
+                        <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">8</p> {/* Static for now */}
+                    </div>
+                </div>
             </header>
 
             {/* Patient List */}
-            <div className="pt-11">
+            <div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Patient List</h2>
                 <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                     {patients.map((patient) => (
                         <li key={patient.patient_id} className="flex flex-col gap-y-4">
@@ -45,10 +67,7 @@ export default function PatientOverview() {
                                 <div className="flex min-w-0 gap-x-4">
                                     <img
                                         alt=""
-                                        src={
-                                            patient.imageUrl ||
-                                            'https://via.placeholder.com/48?text=Avatar'
-                                        }
+                                        src={patient.imageUrl || 'https://via.placeholder.com/48?text=Avatar'}
                                         className="h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-gray-700"
                                     />
                                     <div className="min-w-0 flex-auto">

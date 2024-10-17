@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
-import { fetchPlacements } from '@/utils/fetchPlacementDetails';
+import { fetchPlacements } from '@/utils/fetch/placementDetails';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isWithinInterval, parseISO } from 'date-fns';
 
 export default function PlacementCalendar({ month, selectedPatient }) {

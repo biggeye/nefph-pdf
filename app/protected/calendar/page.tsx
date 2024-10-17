@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import PlacementCalendar from '@/components/calendar/PlacementCalendar';
-import { fetchPlacements } from '@/utils/fetchPlacementDetails';
-import { fetchPatients } from '@/utils/fetchPatientDetails';
-import { fetchFacilities } from '@/utils/fetchFacilityDetails';
+import { fetchPlacements } from '@/utils/fetch/placementDetails';
+import { fetchPatients } from '@/utils/fetch/patientDetails';
+import { fetchFacilities } from '@/utils/fetch/facilityDetails';
 import { insertPlacement } from '@/utils/create';
 
 export default function PlacementManager() {

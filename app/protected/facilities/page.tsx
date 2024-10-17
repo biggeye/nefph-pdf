@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import Facilities from '@/components/facilities/Facilities'; // Import the Facilities component
-import { fetchFacilities } from '@/utils/fetchFacilityDetails';  // Your fetch logic
+import { fetchFacilities } from '@/utils/fetch/facilityDetails';  // Your fetch logic
 
 export default function FacilitiesPage() {
     const [facilities, setFacilities] = useState([]);

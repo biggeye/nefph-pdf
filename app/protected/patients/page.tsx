@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchPatients } from '@/utils/fetchPatientDetails';
-import { fetchPlacements } from '@/utils/fetchPlacementDetails';
+import { fetchPatients } from '@/utils/fetch/patientDetails';
+import { fetchPlacements } from '@/utils/fetch/placementDetails';
 import { insertPatient } from '@/utils/create';
 import PatientInsuranceDetails from '@/components/patients/PatientInsuranceDetails';
 import PatientPersonalDetails from '@/components/patients/PatientPersonalDetails';

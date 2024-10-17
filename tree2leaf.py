@@ -1,6 +1,6 @@
 ﻿import os
 
-base_url = "http://87.120.116.191:8080/"
+base_url = "https://github.com/biggeye/nefph-pdf/tree/main/"
 
 def write_files(md_file, dir_path, base_path, depth):
     files = sorted(f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f)))

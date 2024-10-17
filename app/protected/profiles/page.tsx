@@ -1,12 +1,14 @@
 'use client'
 
-import CreateNewEntry from "../../components/profiles/CreateProfile";
+import CreateNewEntry from "@/components/profiles/CreateProfile";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 
-export default function People() {
+import { fetchIndividual } from "@/utils/fetch/profiles";
+
+export default function Profiles() {
     const supabase = createClient();
     const [people, setPeople] = useState([]);
 
@@ -30,19 +32,18 @@ export default function People() {
                     className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
                 >
                     <div className="flex-shrink-0">
-                        <img alt="" src={person.imageUrl || '/default-avatar.png'} className="h-10 w-10 rounded-full" />
+                        <img alt="" src={person.imageUrl || '/logo.png'} className="h-10 w-10 rounded-full" />
                     </div>
                     <div className="min-w-0 flex-1">
-                        <Link href={`/profiles/${person.id}`} className="focus:outline-none">
+                        <Link href={`/protected/profiles/${person.id}`} className="focus:outline-none">
                             <span aria-hidden="true" className="absolute inset-0" />
-                            <p className="text-sm font-medium text-gray-900">{person.name}</p>
-                            <p className="truncate text-sm text-gray-500">{person.email}</p>
+                            <p className="text-sm font-medium text-gray-900">{person.first_name} {person.last_name}</p>
                         </Link>
                     </div>
                 </div>
             ))}
             <Button>
-                <Link href={`/profiles/new`} className="focus:outline-none">Create New Profile</Link>
+                <Link href={`/protected/profiles/new`} className="focus:outline-none">Create New Profile</Link>
             </Button>
         </div>
     );

@@ -1,5 +1,5 @@
 // utils/fetchPatientDetails.ts
-import { createClient } from './supabase/client';
+import { createClient } from '@/utils/supabase/client';
 
 const supabase = createClient();
 
