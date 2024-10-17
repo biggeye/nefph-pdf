@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-import { createOrUpdatePatient } from '@/utils/createOrUpdatePatient';
+import { createOrUpdatePatient } from '@/utils/createOrUpdate/patients';
 
 export default function EditProfile() {
     const supabase = createClient();
