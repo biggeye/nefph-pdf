@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { fetchPatients } from '@/utils/fetchPatientDetails';
+import { fetchPatients } from '@/utils/fetch/patientDetails';
 import LicenseForm from '@/components/barcode/LicenseForm';
 import { Heading } from '@/components/heading';
 
