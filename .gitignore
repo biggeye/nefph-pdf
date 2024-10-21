@@ -38,3 +38,8 @@ yarn-error.log*
 next-env.d.ts
 echo ".vs/" >> .gitignore
 /.vs
+/downloads
+/kipu
+/app.txt
+/compiled_code.txt
+/newnew.txt
