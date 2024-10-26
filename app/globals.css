@@ -67,3 +67,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@keyframes blinkCursor {
+    0% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: white;
+    }
+
+    100% {
+        border-color: transparent;
+    }
+}
+
+.ansi-box-cursor {
+    background-color: black;
+    border: 2px solid white; /* White border for the ANSI box */
+    caret-color: transparent; /* Hide the default caret */
+    position: relative;
+}
+
+    .ansi-box-cursor::after {
+        content: '';
+        position: absolute;
+        right: -1px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white; /* The cursor color */
+        opacity: 0;
+        animation: blinkCursor 1s infinite; /* Blinking animation */
+    }

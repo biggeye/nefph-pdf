@@ -1,76 +1,94 @@
-'use client'
+'use client';
 
-import { useState, Fragment } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
+import { useState, Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import {
     Bars3Icon,
-    CalendarIcon,
-    ChartPieIcon,
-    DocumentDuplicateIcon,
-    FolderIcon,
+    XMarkIcon,
     HomeIcon,
     UsersIcon,
-    XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ThemeProvider } from 'next-themes'
-import { ThemeSwitcher } from '@/components/theme-switcher'
-import * as Headless from '@headlessui/react'
-import { useRouter } from 'next/navigation'
+    FolderIcon,
+} from '@heroicons/react/24/outline';
+import { ThemeProvider } from 'next-themes';
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import { useRouter } from 'next/navigation';
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Patients', href: '/protected/patients', icon: UsersIcon, current: false },
-    { name: 'Facilities', href: '/protected/facilities', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '/protected/calendar', icon: CalendarIcon, current: false },
-    { name: 'Profiles', href: '/protected/profiles', icon: DocumentDuplicateIcon, current: false },
-]
+    { name: 'Prophylez', href: '/protected/profiles', icon: UsersIcon, current: false },
+    { name: 'Barcodes', href: '/protected/barcode', icon: FolderIcon, current: false },
+];
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ');
 }
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
-    const router = useRouter()
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const router = useRouter();
 
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {/* Mobile Sidebar Dialog */}
-            <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
-                <DialogBackdrop className="fixed inset-0 bg-gray-900/80" />
-                <div className="fixed inset-0 flex">
-                    <DialogPanel className="relative w-full max-w-xs flex-1 bg-gray-900 p-6">
-                        <div className="absolute top-0 right-0 p-2.5">
-                            <button onClick={() => setSidebarOpen(false)} className="text-white">
-                                <XMarkIcon className="h-6 w-6" />
-                            </button>
-                        </div>
-                        <nav className="mt-5">
-                            <ul className="space-y-1">
-                                {navigation.map((item) => (
-                                    <li key={item.name}>
+            {/* Mobile Sidebar */}
+            <Transition.Root show={sidebarOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="transition-opacity ease-linear duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="transition-opacity ease-linear duration-300"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-75" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 flex">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="transition ease-in-out duration-300 transform"
+                            enterFrom="-translate-x-full"
+                            enterTo="translate-x-0"
+                            leave="transition ease-in-out duration-300 transform"
+                            leaveFrom="translate-x-0"
+                            leaveTo="-translate-x-full"
+                        >
+                            <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-gray-800 text-green-500 font-mono p-6">
+                                <div className="absolute top-0 right-0 p-2.5">
+                                    <button
+                                        type="button"
+                                        className="text-white"
+                                        onClick={() => setSidebarOpen(false)}
+                                    >
+                                        <XMarkIcon className="h-6 w-6" />
+                                    </button>
+                                </div>
+                                <nav className="mt-5 space-y-1">
+                                    {navigation.map((item) => (
                                         <a
+                                            key={item.name}
                                             href={item.href}
                                             className={classNames(
                                                 item.current
-                                                    ? 'bg-gray-800 text-white'
-                                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                                    ? 'bg-green-900 text-white'
+                                                    : 'text-green-400 hover:bg-green-900 hover:text-white',
                                                 'flex items-center gap-4 p-2 rounded-md text-sm font-semibold'
                                             )}
                                         >
                                             <item.icon className="h-6 w-6" />
                                             {item.name}
                                         </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
-                    </DialogPanel>
-                </div>
-            </Dialog>
+                                    ))}
+                                </nav>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </Dialog>
+            </Transition.Root>
 
             {/* Static Sidebar for Desktop */}
-            <div className="hidden lg:flex lg:flex-col lg:w-20 lg:bg-gray-900 lg:inset-y-0 lg:fixed lg:left-0">
+            <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-20 lg:flex-col bg-gray-800 border-r-4 border-black">
                 <div className="flex h-16 items-center justify-center">
                     <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
                 </div>
@@ -80,7 +98,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             key={item.name}
                             href={item.href}
                             className={classNames(
-                                item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                item.current
+                                    ? 'bg-green-900 text-white'
+                                    : 'text-green-400 hover:bg-green-900 hover:text-white',
                                 'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6'
                             )}
                         >
@@ -92,29 +112,26 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Topbar for Mobile */}
-            <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
-                <button type="button" onClick={() => setSidebarOpen(true)} className="-m-2.5 p-2.5 text-gray-400">
+            <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-800 border-b-4 border-black px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+                <button type="button" className="-m-2.5 p-2.5 text-green-400" onClick={() => setSidebarOpen(true)}>
                     <Bars3Icon className="h-6 w-6" />
                     <span className="sr-only">Open sidebar</span>
                 </button>
-                <div className="flex-1 text-white text-sm font-semibold">Dashboard</div>
+                <div className="flex-1 text-sm font-semibold text-green-500">Dashboard</div>
             </div>
 
-            {/* Main Content Area */}
-            <main className="lg:pl-20">
-                <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">{children}</div>
+            {/* Main Content with Gradient */}
+            <main className="lg:pl-20 min-h-screen bg-gradient-to-l from-white to-gray-800 text-green-500 font-mono">
+                <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">````
+                    {children}
+                </div>
             </main>
 
             {/* Footer */}
-            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                <p>
-                    Powered by{' '}
-                    <a href="https://supabase.com" target="_blank" className="font-bold hover:underline">
-                        Supabase
-                    </a>
-                </p>
+            <footer className="w-full mx-auto flex items-center justify-center border-t text-center text-xs gap-8 py-16 text-green-500 bg-black">
+                <p>&copy; 2024 b!gG3yedATa</p>
                 <ThemeSwitcher />
             </footer>
         </ThemeProvider>
-    )
+    );
 }

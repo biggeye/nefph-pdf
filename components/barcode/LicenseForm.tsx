@@ -3,8 +3,10 @@
 import generateBarcode from 'pdf417';
 import { useState, useEffect } from 'react';
 
-const LicenseForm = ({ selectedPatient }) => {
+const LicenseForm = () => {
     const [formData, setFormData] = useState({
+        aamvaVersion: '',
+        jurisdictionVersion: '',
         firstName: '',
         middleName: '',
         lastName: '',
@@ -24,33 +26,6 @@ const LicenseForm = ({ selectedPatient }) => {
 
     // State for storing barcode
     const [barcodeSrc, setBarcodeSrc] = useState(null);
-
-    // If no patient is selected, show this message
-    useEffect(() => {
-        if (selectedPatient) {
-            // Prepopulate form fields with selected patient's data
-            setFormData({
-                firstName: selectedPatient.firstname || '',
-                lastName: selectedPatient.lastname || '',
-                dob: selectedPatient.dob || '',  // Date of Birth
-                height: selectedPatient.height || '',
-                weight: selectedPatient.weight || '',
-                eyes: selectedPatient.eyes || '',
-                hair: selectedPatient.hair || '',
-                address: selectedPatient.address || '',
-                city: selectedPatient.city || '',
-                state: selectedPatient.state || '',
-                zip: selectedPatient.zip || '',
-                dlNumber: selectedPatient.dlnumber || '',  // Driver's License Number
-                icn: selectedPatient.icn || '',
-                dd: selectedPatient.dd || '',
-                issueDate: selectedPatient.issuedate || '',  // Issue Date
-                expiryDate: selectedPatient.expirydate || '', // Expiry Date
-            })
-            console.log(formData);                ;
-        }
-    }, [selectedPatient]);
-
 
     const iinIndex = {
         AL: '636033',
@@ -130,7 +105,7 @@ const LicenseForm = ({ selectedPatient }) => {
         // Construct a string for barcode generation based on form data
         const ansiHeader = `@
 
-        ANSI ${stateIIN}090102`;
+        ANSI ${stateIIN}${aamvaVersion}${jurisdictionVersion}02`;
 
         const barcodeDataString = `${ansiHeader}${formData.docType}00410287ZC03280024${formData.docType}DAQ${formData.licenseNumber}
       DCS${formData.lastName}

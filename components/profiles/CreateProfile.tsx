@@ -6,8 +6,8 @@ import {
     fetchIndividual,
     fetchDriversLicense,
     fetchRelatedRecords
-} from '@/utils/fetch/profiles';
-import { createOrUpdateIndividual } from '@/utils/createOrUpdate/individuals'; // Utility for create/update
+} from '@/utils/profiles/fetch';
+import { createOrUpdateIndividual } from '@/utils/profiles/createOrUpdate'; // Utility for create/update
 
 const CreateProfileForm = () => {
     const supabase = createClient();
