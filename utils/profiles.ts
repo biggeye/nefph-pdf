@@ -1,9 +1,24 @@
 import { createClient } from '@/utils/supabase/client';
-import { Profiles, Profile, Logs, DL, Banks } from '@/data/types';  // Assuming these are your data types
+import { Business, Profiles, Profile, Logs, DL, Banks } from '@/data/types/profiles';  // Assuming these are your data types
 
 const supabase = createClient();
 
-// Fetch profile data from 'seepeeen' table
+export async function fetchBusiness(cpn_id: string): Promise<{ data: Business | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('business')
+            .select('*')
+            .eq('cpn_id', cpn_id)
+            .maybeSingle();
+
+        if (error) throw error;
+        return { data: data as Business, error: null };
+    } catch (error) {
+        console.error('Error fetching business: ', error);
+        return { data: null, error: 'Error fetching business' };
+    }
+}
+
 export async function fetchProfile(cpn_id: string): Promise<{ data: Profile | null, error: string | null }> {
     try {
         const { data, error } = await supabase
@@ -21,7 +36,6 @@ export async function fetchProfile(cpn_id: string): Promise<{ data: Profile | nu
     }
 }
 
-// Fetch logs for a specific profile from 'logs' table
 export async function fetchLogs(cpn_id: string): Promise<{ data: Logs[] | null, error: string | null }> {
     try {
         const { data, error } = await supabase
@@ -38,7 +52,6 @@ export async function fetchLogs(cpn_id: string): Promise<{ data: Logs[] | null, 
     }
 }
 
-// Fetch driver's license data from 'dl' table
 export async function fetchDL(cpn_id: string): Promise<{ data: any | null, error: string | null }> {
     try {
         const { data, error } = await supabase
@@ -56,8 +69,6 @@ export async function fetchDL(cpn_id: string): Promise<{ data: any | null, error
     }
 }
 
-
-    // Fetch bank data from 'banks' table
     export async function fetchBanks(cpn_id: string): Promise<{ data: Banks[] | null, error: string | null }> {
         try {
             const { data, error } = await supabase
@@ -73,7 +84,6 @@ export async function fetchDL(cpn_id: string): Promise<{ data: any | null, error
             return { data: null, error: 'Error fetching banks' };
         }
     }
-
 export async function fetchAllProfiles() {
     try {
         const { data, error } = await supabase
@@ -89,7 +99,7 @@ export async function fetchAllProfiles() {
     }
 }
 
-// Update profile data in 'seepeeen' table
+// UPDATE
 export async function updateProfile(cpn_id: string, updatedFields: Partial<Profile>): Promise<{ data: Profile | null, error: string | null }> {
     try {
         const { data, error } = await supabase
@@ -107,7 +117,6 @@ export async function updateProfile(cpn_id: string, updatedFields: Partial<Profi
     }
 }
 
-// Update logs for a specific profile in 'logs' table
 export async function updateLogs(cpn_id: string, logId: string, updatedFields: Partial<Logs>): Promise<{ data: Logs | null, error: string | null }> {
     try {
         const { data, error } = await supabase
@@ -126,7 +135,7 @@ export async function updateLogs(cpn_id: string, logId: string, updatedFields: P
     }
 }
 
-// Update driver's license data in 'dl' table
+
 export async function updateDL(cpn_id: string, updatedFields: Partial<DL>): Promise<{ data: DL | null, error: string | null }> {
     try {
         const { data, error } = await supabase
@@ -145,7 +154,6 @@ export async function updateDL(cpn_id: string, updatedFields: Partial<DL>): Prom
     }
     }
 
-    // Update bank data in 'banks' table
     export async function updateBanks(cpn_id: string, bankId: string, updatedFields: Partial<Banks>): Promise<{ data: Banks | null, error: string | null }> {
         try {
             const { data, error } = await supabase
@@ -162,4 +170,39 @@ export async function updateDL(cpn_id: string, updatedFields: Partial<DL>): Prom
             console.error('Error updating bank information:', error);
             return { data: null, error: 'Error updating bank information' };
         }
+}
+
+export async function updateBusiness(id: string, updatedFields: Partial<Business>): Promise<{ data: Business | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('business')
+            .update(updatedFields)
+            .eq('id', id)
+            .single();  // Update a specific row by ID
+
+        if (error) throw error;
+
+        return { data: data as Business, error: null };
+    } catch (error) {
+        console.error('Error updating business:', error);
+        return { data: null, error: 'Error updating business' };
     }
+}
+
+// CREATE
+
+export async function createBusiness(newEntry: Business): Promise<{ data: Business | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('business')
+            .insert(newEntry)
+            .single();  // Insert a single new entry
+
+        if (error) throw error;
+
+        return { data: data as Business, error: null };
+    } catch (error) {
+        console.error('Error creating business row:', error);
+        return { data: null, error: 'Error creating business row' };
+    }
+}

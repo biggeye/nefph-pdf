@@ -90,7 +90,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             {/* Static Sidebar for Desktop */}
             <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-20 lg:flex-col bg-gray-800 border-r-4 border-black">
                 <div className="flex h-16 items-center justify-center">
-                    <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+                    <img src="@/data/finalhorizon.svg" alt="Logo" className="h-8 w-auto" />
                 </div>
                 <nav className="flex flex-col items-center space-y-1 mt-8">
                     {navigation.map((item) => (
@@ -117,12 +117,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     <Bars3Icon className="h-6 w-6" />
                     <span className="sr-only">Open sidebar</span>
                 </button>
-                <div className="flex-1 text-sm font-semibold text-green-500">Dashboard</div>
+                <div className="flex-1 text-sm font-semibold text-green-500">seePeeNz</div>
             </div>
 
             {/* Main Content with Gradient */}
             <main className="lg:pl-20 min-h-screen bg-gradient-to-l from-white to-gray-800 text-green-500 font-mono">
-                <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">````
+                <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
                     {children}
                 </div>
             </main>

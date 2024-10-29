@@ -1,5 +1,7 @@
 // /utils/assets.ts
-import { supabase } from './supabaseClient';
+import { createClient } from '@/utils/supabase/client';
+
+const supabase = createClient();
 
 // Define the asset type
 interface Asset {

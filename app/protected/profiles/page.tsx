@@ -5,7 +5,7 @@ import Link from 'next/link'; // Import Next.js Link for navigation
 import { createClient } from '@/utils/supabase/client';
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import { fetchAllProfiles } from '@/utils/profiles';
-import { Profile } from '@/data/types';
+import { Profile } from '@/data/types/profiles';
 
 export default function Dashboard() {
     const supabase = createClient();
@@ -42,10 +42,7 @@ export default function Dashboard() {
     return (
         <div className="p-4 bg-gray-800 min-h-screen">
             {/* Dashboard Header Section */}
-            <header className="mb-6">
-                {/* Stats Overview */}
-                        <p className="text-sm text-green-400">Total Profiles:  </p><span className="mt-1 text-2xl font-bold text-green-500">{profiles.length}</span>
-            </header>
+           
 
             {/* Profile List */}
             <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

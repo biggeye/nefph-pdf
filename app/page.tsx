@@ -4,7 +4,7 @@ export default function Example() {
             <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
                 <h2 className="text-center text-base/7 font-semibold text-indigo-600">Admin Portal</h2>
                 <p className="mx-auto mt-2 max-w-lg text-pretty text-center text-4xl font-medium tracking-tight text-gray-950 sm:text-5xl">
-                    Manage Your Clients and Facilities with Ease
+                    se3P3eNz
                 </p>
                 <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
                     {/* Dashboard Feature */}
@@ -13,10 +13,10 @@ export default function Example() {
                         <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                             <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
                                 <p className="mt-2 text-lg/7 font-medium tracking-tight text-gray-950 max-lg:text-center">
-                                    Dashboard Overview
+                                    Overview
                                 </p>
                                 <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                    Get an at-a-glance view of all your clients, their assigned facilities, and scheduling statuses.
+                                    Get an at-a-glance view of all your clients, their assets and what's to come.
                                 </p>
                             </div>
                             <div className="relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
@@ -38,10 +38,10 @@ export default function Example() {
                         <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                             <div className="px-8 pt-8 sm:px-10 sm:pt-10">
                                 <p className="mt-2 text-lg/7 font-medium tracking-tight text-gray-950 max-lg:text-center">
-                                    Client Management
+                                    Profile Management
                                 </p>
                                 <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                    Easily manage client profiles, track their facility assignments, and monitor their care statuses.
+                                    Manage, track, monitor.
                                 </p>
                             </div>
                             <div className="flex flex-1 items-center justify-center px-8 max-lg:pb-12 max-lg:pt-10 sm:px-10 lg:pb-2">

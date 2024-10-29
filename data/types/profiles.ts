@@ -19,6 +19,8 @@ export interface Profile {
     pin?: string;
     security_question?: string;
     answer?: string;// Date of birth
+    picture_url?: string;
+    role?: string;
 }
 
 export interface Logs {
@@ -66,3 +68,18 @@ export interface Asset {
     type: string;
     description?: string;
 }
+
+export interface Business {
+    cpn_id: string;
+    name: string;
+    dba: string;
+    ein: string;
+    formation_date: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    type: string;
+    payroll_provider?: string;
+}
+

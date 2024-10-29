@@ -1,128 +1,120 @@
 'use client';
 
-import {
-    AcademicCapIcon,
-    QrCodeIcon,
-    UsersIcon,
-} from '@heroicons/react/24/outline';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
-
-const actions = [
-    {
-        title: 'Manage Profiles',
-        href: '/protected/profiles', // Link to profiles section
-        icon: UsersIcon,
-        iconForeground: 'text-purple-700',
-        iconBackground: 'bg-purple-50',
-    },
-    {
-        title: 'Barcode Scanning',
-        href: '/protected/barcode', // Link to barcode scanning section
-        icon: QrCodeIcon, // Example icon
-        iconForeground: 'text-teal-700',
-        iconBackground: 'bg-teal-50',
-    },
-    {
-        title: 'Training',
-        href: '#',
-        icon: AcademicCapIcon,
-        iconForeground: 'text-indigo-700',
-        iconBackground: 'bg-indigo-50',
-    },
-];
-
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ');
-}
+import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid';
+import { fetchAllProfiles } from '@/utils/profiles';
+import { Profile } from '@/data/types/profiles';
 
 export default function Dashboard() {
     const supabase = createClient();
-    const [profiles, setProfiles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [profiles, setProfiles] = useState<Profile[]>([]);
+    const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
+    // Fetch profiles on component mount
     useEffect(() => {
-        async function fetchProfiles() {
+        const fetchProfiles = async () => {
             try {
                 setLoading(true);
-                const { data, error } = await supabase.from('seepeeen').select('*');
-                if (error) throw error;
-                setProfiles(data);
-            } catch (error) {
-                console.error('Error fetching profiles:', error);
+                const { data, error } = await fetchAllProfiles();
+                if (error) throw new Error(error.message);
+                setProfiles(data || []);
+            } catch (err) {
+                console.error('Error fetching profiles:', err);
                 setError('Failed to load profiles');
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         fetchProfiles();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    const toggleExpand = (profileId: string) => {
+        setExpandedProfile(prevId => (prevId === profileId ? null : profileId));
+    };
+
+    if (loading) return <p className="text-green-400">Loading...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
 
     return (
-        <div className="p-4">
+        <div className="p-4 bg-gray-800 min-h-screen">
             {/* Dashboard Header */}
             <header className="mb-6">
-                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">seePeeEnz Dashboard</h1>
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-1 gap-4">
-                    <div className="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Total Profiles</p>
-                        <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{profiles.length}</p>
-                    </div>
-                </div>
+                <p className="text-sm text-green-400">Total Profiles: <span className="mt-1 text-2xl font-bold text-green-500">{profiles.length}</span></p>
             </header>
 
-            {/* Action Card Grid */}
-            <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
-                {actions.map((action, actionIdx) => (
-                    <div
-                        key={action.title}
-                        className={classNames(
-                            actionIdx === 0 ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none' : '',
-                            actionIdx === 1 ? 'sm:rounded-tr-lg' : '',
-                            actionIdx === actions.length - 2 ? 'sm:rounded-bl-lg' : '',
-                            actionIdx === actions.length - 1 ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none' : '',
-                            'group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500',
-                        )}
-                    >
-                        <div>
-                            <span
-                                className={classNames(
-                                    action.iconBackground,
-                                    action.iconForeground,
-                                    'inline-flex rounded-lg p-3 ring-4 ring-white',
-                                )}
-                            >
-                                <action.icon aria-hidden="true" className="h-6 w-6" />
-                            </span>
+            {/* Profile List */}
+            <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {profiles.map((profile) => (
+                    <li key={profile.cpn_id} className="col-span-1 divide-y divide-green-900 rounded-lg bg-gray-900 shadow-lg">
+                        <div className="flex w-full items-center justify-between space-x-6 p-6 text-green-400">
+                            <div className="flex-1 truncate">
+                                <div className="flex items-center space-x-3">
+                                    <Link href={`/protected/profiles/${profile.cpn_id}`} passHref>
+                                        <h3 className="cursor-pointer truncate text-sm font-bold text-green-500 hover:text-white">
+                                            {profile.first_name} {profile.last_name}
+                                        </h3>
+                                    </Link>
+                                    <span className="inline-flex items-center rounded-full bg-green-900 px-1.5 py-0.5 text-xs font-medium text-green-400 ring-1 ring-green-500/20">
+                                        {profile.role || 'User'}
+                                    </span>
+                                </div>
+                                <p className="mt-1 truncate text-sm text-green-500">SSN: {profile.ssn}</p>
+                                <p className="mt-1 truncate text-sm text-green-500">DOB: {profile.dob}</p>
+                                <p className="mt-1 truncate text-sm text-green-500">{profile.email || 'No email available'}</p>
+                                <p className="mt-1 truncate text-sm text-green-500">{profile.phone || 'No phone available'}</p>
+                            </div>
+                            <img
+                                alt="Avatar"
+                                src={profile.picture_url || 'https://via.placeholder.com/48?text=Avatar'}
+                                className="h-10 w-10 flex-shrink-0 rounded-full bg-green-900"
+                            />
                         </div>
-                        <div className="mt-8">
-                            <h3 className="text-base font-semibold leading-6 text-gray-900">
-                                <Link href={action.href} className="focus:outline-none">
-                                    <span aria-hidden="true" className="absolute inset-0" />
-                                    {action.title}
-                                </Link>
-                            </h3>
-                            <p className="mt-2 text-sm text-gray-500">
-                                Quickly navigate to {action.title.toLowerCase()}.
-                            </p>
+
+                        <div className="-mt-px flex divide-x divide-green-900">
+                            <div className="flex w-0 flex-1">
+                                <a
+                                    href={`mailto:${profile.email}`}
+                                    className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-green-500"
+                                >
+                                    <EnvelopeIcon aria-hidden="true" className="h-5 w-5 text-green-400" />
+                                    Email
+                                </a>
+                            </div>
+                            <div className="-ml-px flex w-0 flex-1">
+                                <a
+                                    href={`tel:${profile.phone}`}
+                                    className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-green-500"
+                                >
+                                    <PhoneIcon aria-hidden="true" className="h-5 w-5 text-green-400" />
+                                    Call
+                                </a>
+                            </div>
                         </div>
-                        <span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-gray-400"
+
+                        {/* Expanded Profile Details */}
+                        <button
+                            onClick={() => toggleExpand(profile.cpn_id)}
+                            className="w-full text-sm font-semibold text-green-500 hover:text-white py-2"
                         >
-                            <svg fill="currentColor" viewBox="0 0 24 24" className="h-6 w-6">
-                                <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-                            </svg>
-                        </span>
-                    </div>
+                            {expandedProfile === profile.cpn_id ? 'Hide Details' : 'View Details'}
+                        </button>
+
+                        {expandedProfile === profile.cpn_id && (
+                            <div className="bg-gray-800 p-4 mt-2 rounded-md text-green-400">
+                                <p>Address: {profile.address}</p>
+                                <p>City: {profile.city}</p>
+                                <p>State: {profile.state}</p>
+                                <p>ZIP: {profile.zip}</p>
+                            </div>
+                        )}
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
 }

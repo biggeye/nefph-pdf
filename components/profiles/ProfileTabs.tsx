@@ -1,128 +1,195 @@
 import { PaperClipIcon } from '@heroicons/react/20/solid';
-export function Personal({ data, isEditing, setEditableData }) {
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+
+
+interface PersonalData {
+    first_name: string;
+    last_name: string;
+    dob: string;
+    ssn: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+}
+
+interface DriverLicenseData {
+    dl_number?: string;
+    issue_date?: string;
+    expiration_date?: string;
+    state?: string;
+    gender?: string;
+    eye_color?: string;
+    hair_color?: string;
+    height?: string;
+    weight?: string;
+    dd?: string;
+    icn?: string;
+}
+
+interface LogData {
+    log_id: number;
+    site: string;
+    username: string;
+    password: string;
+    pin?: string;
+    security_question?: string;
+    answer?: string;
+}
+
+interface BankData {
+    bank_name: string;
+    account_number: string;
+    routing_number: string;
+    account_type: string;
+}
+
+interface EditableProps<T> {
+    data: T;
+    isEditing: boolean;
+    setEditableData: React.Dispatch<React.SetStateAction<{
+        personal?: PersonalData;
+        dl?: DriverLicenseData;
+        logs?: LogData[];
+        banks?: BankData[];
+    }>>;
+}
+
+
+
+export function Personal({ data, isEditing, setEditableData }: EditableProps<PersonalData>) {
     if (!data) {
         return <p className="text-red-500">No personal information available.</p>;
     }
 
-    const handleChange = (field, value) => {
+    const handleChange = (field: keyof PersonalData, value: string) => {
         setEditableData((prevData) => ({
             ...prevData,
             personal: { ...prevData.personal, [field]: value },
         }));
     };
 
+    const transitionVariants = {
+        hidden: { opacity: 0, y: 10 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
-        <div className="bg-black text-green-500 font-mono p-6 rounded-md">
+        <motion.div
+            className="bg-black text-green-500 font-mono p-6 rounded-md"
+            initial="hidden"
+            animate="visible"
+            variants={transitionVariants}
+            transition={{ duration: 0.4 }}
+        >
             <div className="px-4 sm:px-0">
                 <h3 className="text-lg font-bold text-green-500">Personal Information</h3>
             </div>
             <div className="mt-6">
-                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="border-t border-green-900 px-4 py-6 sm:col-span-1 sm:px-0">
-                        <dt className="text-sm font-bold">First Name</dt>
+                <dl className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Full Name block */}
+                    <div className="border-t border-green-900 px-4 py-6 md:col-span-2">
+                        <dt className="text-sm font-bold">Name</dt>
                         {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.first_name}
-                                onChange={(e) => handleChange('first_name', e.target.value)}
-                            />
+                            <>
+                                <input
+                                    className="mt-1 block w-full bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.first_name}
+                                    onChange={(e) => handleChange('first_name', e.target.value)}
+                                    placeholder="First Name"
+                                />
+                                <input
+                                    className="mt-1 block w-full bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.last_name}
+                                    onChange={(e) => handleChange('last_name', e.target.value)}
+                                    placeholder="Last Name"
+                                />
+                            </>
                         ) : (
-                            <dd className="mt-1 text-white">{data.first_name}</dd>
+                            <dd className="mt-1 text-white block">
+                                {data.first_name} {data.last_name}
+                            </dd>
                         )}
+                    </div>
 
-                        <dt className="text-sm font-bold">Last Name</dt>
-                        {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.last_name}
-                                onChange={(e) => handleChange('last_name', e.target.value)}
-                            />
-                        ) : (
-                            <dd className="mt-1 text-white">{data.last_name}</dd>
-                        )}
+                    {/* DOB and SSN block */}
+                    <div className="border-t border-green-900 px-4 py-6 md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <dt className="text-sm font-bold">Date of Birth</dt>
+                            {isEditing ? (
+                                <input
+                                    className="mt-1 block w-full bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.dob}
+                                    onChange={(e) => handleChange('dob', e.target.value)}
+                                />
+                            ) : (
+                                <dd className="mt-1 text-white">{data.dob}</dd>
+                            )}
+                        </div>
+                        <div>
+                            <dt className="text-sm font-bold">SSN</dt>
+                            {isEditing ? (
+                                <input
+                                    className="mt-1 block w-full bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.ssn}
+                                    onChange={(e) => handleChange('ssn', e.target.value)}
+                                />
+                            ) : (
+                                <dd className="mt-1 text-white">{data.ssn}</dd>
+                            )}
+                        </div>
+                    </div>
 
-                        <dt className="text-sm font-bold">Date of Birth</dt>
-                        {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.dob}
-                                onChange={(e) => handleChange('email', e.target.value)}
-                            />
-                        ) : (
-                            <dd className="mt-1 text-white">{data.email}</dd>
-                        )}
-
-                        <dt className="text-sm font-bold">SSN</dt>
-                        {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.ssn}
-                                onChange={(e) => handleChange('phone', e.target.value)}
-                            />
-                        ) : (
-                            <dd className="mt-1 text-white">{data.phone}</dd>
-                        )}
+                    {/* Address block */}
+                    <div className="border-t border-green-900 px-4 py-6 md:col-span-2">
                         <dt className="text-sm font-bold">Address</dt>
                         {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.address}
-                                onChange={(e) => handleChange('email', e.target.value)}
-                            />
+                            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                                <input
+                                    className="mt-1 block w-full col-span-4 sm:col-span-4 bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.address}
+                                    onChange={(e) => handleChange('address', e.target.value)}
+                                    placeholder="Address"
+                                />
+                                <input
+                                    className="mt-1 block w-full col-span-2 sm:col-span-2 bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.city}
+                                    onChange={(e) => handleChange('city', e.target.value)}
+                                    placeholder="City"
+                                />
+                                <input
+                                    className="mt-1 block w-full col-span-1 sm:col-span-1 bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.state}
+                                    onChange={(e) => handleChange('state', e.target.value)}
+                                    placeholder="State"
+                                    maxLength={2}
+                                />
+                                <input
+                                    className="mt-1 block w-full col-span-1 sm:col-span-1 bg-black text-white ansi-box-cursor"
+                                    defaultValue={data.zip}
+                                    onChange={(e) => handleChange('zip', e.target.value)}
+                                    placeholder="Zip"
+                                />
+                            </div>
                         ) : (
-                                <dd className="mt-1 text-white">{data.address}</dd>
+                            <dd className="mt-1 text-white block">
+                                {data.address}, {data.city}, {data.state} {data.zip}
+                            </dd>
                         )}
-
-                        <dt className="text-sm font-bold">City</dt>
-                        {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.city}
-                                onChange={(e) => handleChange('phone', e.target.value)}
-                            />
-                        ) : (
-                            <dd className="mt-1 text-white">{data.city}</dd>
-                        )}
-                        <dt className="text-sm font-bold">State</dt>
-                        {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.state}
-                                onChange={(e) => handleChange('email', e.target.value)}
-                            />
-                        ) : (
-                            <dd className="mt-1 text-white">{data.state}</dd>
-                        )}
-                        <dt className="text-sm font-bold">Zip</dt>
-                        {isEditing ? (
-                            <input
-                                className="mt-1 block w-full bg-black text-white ansi-box-cursor"
-                                defaultValue={data.zip}
-                                onChange={(e) => handleChange('phone', e.target.value)}
-                            />
-                        ) : (
-                            <dd className="mt-1 text-white">{data.zip}</dd>
-                        )}
-                        
                     </div>
                 </dl>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
-
-
-
-
-
-export function DL({ data, isEditing, setEditableData }) {
-    // Add a check to handle cases where the 'data' is undefined or missing properties
+export function DL({ data, isEditing, setEditableData }: EditableProps<DriverLicenseData>) {
     if (!data) {
         return <p className="text-red-500">No driver's license information available.</p>;
     }
 
-    const handleChange = (field, value) => {
+    const handleChange = (field: keyof DriverLicenseData, value: string) => {
         setEditableData((prevData) => ({
             ...prevData,
             dl: { ...prevData.dl, [field]: value },
@@ -135,7 +202,6 @@ export function DL({ data, isEditing, setEditableData }) {
                 <h3 className="text-lg font-bold text-green-500">Driver's License Information</h3>
                 <p className="mt-1 max-w-2xl text-sm text-green-400">Details of the driver's license.</p>
             </div>
-
             <div className="mt-6 space-y-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
@@ -287,11 +353,11 @@ export function DL({ data, isEditing, setEditableData }) {
 }
 
 
-export function Logs({ data, isEditing, setEditableData }) {
-    const handleChange = (logId, field, value) => {
+export function Logs({ data, isEditing, setEditableData }: EditableProps<LogData[]>) {
+    const handleChange = (logId: number, field: keyof LogData, value: string) => {
         setEditableData((prevData) => ({
             ...prevData,
-            logs: prevData.logs.map((log) =>
+            logs: prevData.logs?.map((log) =>
                 log.log_id === logId ? { ...log, [field]: value } : log
             ),
         }));
@@ -318,6 +384,8 @@ export function Logs({ data, isEditing, setEditableData }) {
                                 ) : (
                                     <dd className="mt-1 text-white">{log.site}</dd>
                                 )}
+                                {/* Continue similarly for other fields */}
+                         
 
                                 <dt className="text-sm font-bold">Username</dt>
                                 {isEditing ? (
@@ -395,11 +463,11 @@ export function Logs({ data, isEditing, setEditableData }) {
     );
 }
 
-export function Banks({ data, isEditing, setEditableData }) {
-    const handleChange = (index, field, value) => {
+export function Banks({ data, isEditing, setEditableData }: EditableProps<BankData[]>) {
+    const handleChange = (index: number, field: keyof BankData, value: string) => {
         setEditableData((prevData) => ({
             ...prevData,
-            banks: prevData.banks.map((bank, i) =>
+            banks: prevData.banks?.map((bank, i) =>
                 i === index ? { ...bank, [field]: value } : bank
             ),
         }));
@@ -426,6 +494,7 @@ export function Banks({ data, isEditing, setEditableData }) {
                                 ) : (
                                     <dd className="mt-1 text-white">{bank.bank_name}</dd>
                                 )}
+                                {/* Continue similarly for other fields */}
 
                                 <dt className="text-sm font-bold">Account Number</dt>
                                 {isEditing ? (
