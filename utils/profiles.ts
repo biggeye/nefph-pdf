@@ -206,3 +206,67 @@ export async function createBusiness(newEntry: Business): Promise<{ data: Busine
         return { data: null, error: 'Error creating business row' };
     }
 }
+
+export async function createLog(newEntry: Logs): Promise<{ data: Logs | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('log')
+            .insert(newEntry)
+            .single();  // Insert a single new entry
+
+        if (error) throw error;
+
+        return { data: data as Logs, error: null };
+    } catch (error) {
+        console.error('Error creating business row:', error);
+        return { data: null, error: 'Error creating business row' };
+    }
+}
+
+export async function createDL(newEntry: DL): Promise<{ data: DL | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('dl')
+            .insert(newEntry)
+            .single();  // Insert a single new entry
+
+        if (error) throw error;
+
+        return { data: data as DL, error: null };
+    } catch (error) {
+        console.error('Error creating business row:', error);
+        return { data: null, error: 'Error creating business row' };
+    }
+}
+
+export async function createBank(newEntry: Banks): Promise<{ data: Banks | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('banks')
+            .insert(newEntry)
+            .single();  // Insert a single new entry
+
+        if (error) throw error;
+
+        return { data: data as Banks, error: null };
+    } catch (error) {
+        console.error('Error creating business row:', error);
+        return { data: null, error: 'Error creating business row' };
+    }
+}
+
+export async function createProfile(newEntry: Profile): Promise<{ data: Profile | null, error: string | null }> {
+    try {
+        const { data, error } = await supabase
+            .from('business')
+            .insert(newEntry)
+            .single();  // Insert a single new entry
+
+        if (error) throw error;
+
+        return { data: data as Profile, error: null };
+    } catch (error) {
+        console.error('Error creating business row:', error);
+        return { data: null, error: 'Error creating business row' };
+    }
+}

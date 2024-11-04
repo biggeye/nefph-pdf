@@ -2,18 +2,88 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Personal, DL, Logs, Banks } from '@/components/profiles/ProfileTabs';
-import { fetchProfile, fetchLogs, fetchDL, fetchBanks } from '@/utils/profiles';
-import { updateProfile, updateDL, updateLogs, updateBanks } from '@/utils/profiles';  // Import update utilities
+import { Personal, DL, Logs, Banks, Business } from '@/components/profiles/ProfileTabs';
+import { fetchProfile, fetchLogs, fetchDL, fetchBanks, fetchBusiness } from '@/utils/profiles';
+import { updateProfile, updateDL, updateLogs, updateBanks, updateBusiness } from '@/utils/profiles';
 import MediaGallery from '@/components/assets/MediaGallery';
 import MediaUploader from '@/components/assets/MediaUploader';
 
+interface PersonalData {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    dob: string;
+    ssn: string;
+}
+
+interface DLData {
+    dl_number: string;
+    issue_date: string;
+    expiration_date: string;
+    state: string;
+    gender: string;
+    eye_color: string;
+    hair_color: string;
+    height: string;
+    weight: string;
+    dd: string;
+    icn: string;
+}
+
+interface LogData {
+    log_id: number;
+    site: string;
+    username: string;
+    password: string;
+    pin?: string;
+    security_question?: string;
+    answer?: string;
+}
+
+interface BankData {
+    bank_name: string;
+    account_number: string;
+    routing_number: string;
+    account_type: string;
+}
+
+interface BusinessData {
+    id: number;
+    created_at: string;
+    cpn_id: string;
+    name: string;
+    dba: string;
+    ein: string;
+    formation_date?: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    type?: string;
+    payroll_provider?: string;
+}
+
 interface UserData {
-    personal: object | null;
-    dl: object | null;
-    logs: object | null;
-    banks: object | null;
-    assets?: Asset[];  // Optional, as it may not be available initially
+    personal: PersonalData | null;
+    dl: DLData | null;
+    logs: LogData[] | null;
+    banks: BankData[] | null;
+    business: BusinessData | null;
+    assets?: Asset[];
+}
+
+interface UserData {
+    personal: PersonalData | null;
+    dl: DLData | null;
+    logs: LogData[] | null;
+    banks: BankData[] | null;
+    business: BusinessData | null;
+    assets?: Asset[];
 }
 
 interface Asset {
@@ -24,10 +94,10 @@ interface Asset {
 
 export default function ProfileDetail() {
     const { id: cpn_id } = useParams();
-    const [currentTab, setCurrentTab] = useState<string>('personal');
+    const [currentTab, setCurrentTab] = useState<'personal' | 'dl' | 'logs' | 'banks' | 'business'>('personal');
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [profile, setProfile] = useState<UserData | null>(null);
-    const [editableProfile, setEditableProfile] = useState<UserData | null>(null);  // Store editable data
+    const [editableProfile, setEditableProfile] = useState<UserData | null>(null);
     const [assets, setAssets] = useState<Asset[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -36,6 +106,7 @@ export default function ProfileDetail() {
         { name: 'DL', id: 'dl' },
         { name: 'Logs', id: 'logs' },
         { name: 'Banks', id: 'banks' },
+        { name: 'Business', id: 'business' },
     ];
 
     useEffect(() => {
@@ -50,17 +121,19 @@ export default function ProfileDetail() {
                 const logsResponse = await fetchLogs(cpn_id);
                 const dlResponse = await fetchDL(cpn_id);
                 const banksResponse = await fetchBanks(cpn_id);
+                const businessResponse = await fetchBusiness(cpn_id);
 
-                const userData = {
+                const userData: UserData = {
                     personal: profileResponse.data,
                     logs: logsResponse.data,
                     dl: dlResponse.data,
                     banks: banksResponse.data,
+                    business: businessResponse.data,
                     assets: [],
                 };
 
                 setProfile(userData);
-                setEditableProfile(userData);  // Initialize editable data with fetched data
+                setEditableProfile(userData);
             } catch (error) {
                 console.error('Error fetching profile data:', error);
             } finally {
@@ -74,7 +147,7 @@ export default function ProfileDetail() {
     const toggleEditMode = () => {
         setIsEditing(!isEditing);
         if (!isEditing) {
-            setEditableProfile(profile);  // Reset editable profile data when exiting edit mode
+            setEditableProfile(profile);
         }
     };
 
@@ -82,36 +155,20 @@ export default function ProfileDetail() {
         if (!editableProfile) return;
 
         try {
-            if (currentTab === 'personal') {
-                const updatedPersonalData = {
-                    first_name: editableProfile.personal.first_name,
-                    last_name: editableProfile.personal.last_name,
-                    email: editableProfile.personal.email,
-                    phone: editableProfile.personal.phone,
-                    address: editableProfile.personal.address,
-                    city: editableProfile.personal.city,
-                    state: editableProfile.personal.state,
-                    zip: editableProfile.personal.zip,
-                    dob: editableProfile.personal.dob,
-                    ssn: editableProfile.personal.ssn,
-                };
-
-                const { data, error } = await updateProfile(cpn_id, updatedPersonalData);
+            if (currentTab === 'personal' && editableProfile.personal) {
+                const { data, error } = await updateProfile(cpn_id, editableProfile.personal);
                 if (error) throw new Error(error);
                 console.log('Profile updated successfully:', data);
+            } else if (currentTab === 'dl' && editableProfile.dl) {
+                await updateDL(cpn_id, editableProfile.dl);
+            } else if (currentTab === 'logs' && editableProfile.logs) {
+                await updateLogs(cpn_id, editableProfile.logs);
+            } else if (currentTab === 'banks' && editableProfile.banks) {
+                await updateBanks(cpn_id, editableProfile.banks);
+            } else if (currentTab === 'business' && editableProfile.business) {
+                await updateBusiness(cpn_id, editableProfile.business);
             }
 
-            /* Add logic for-
-            DL:
-            
-            Logs:
-            
-            Banks: 
-
-            Business:
-
-
-            */
             setProfile(editableProfile);
             setIsEditing(false);
         } catch (error) {
@@ -121,7 +178,7 @@ export default function ProfileDetail() {
 
     const handleCancel = () => {
         setIsEditing(false);
-        setEditableProfile(profile);  
+        setEditableProfile(profile);
     };
 
     const handleMediaUpload = (newFileUrl: string) => {
@@ -137,7 +194,6 @@ export default function ProfileDetail() {
             return <p className="text-red-500">No profile data available.</p>;
         }
 
-      
         switch (currentTab) {
             case 'personal':
                 return <Personal data={editableProfile.personal} isEditing={isEditing} setEditableData={setEditableProfile} />;
@@ -147,6 +203,8 @@ export default function ProfileDetail() {
                 return <Logs data={editableProfile.logs} isEditing={isEditing} setEditableData={setEditableProfile} />;
             case 'banks':
                 return <Banks data={editableProfile.banks} isEditing={isEditing} setEditableData={setEditableProfile} />;
+            case 'business':
+                return <Business data={editableProfile.business} isEditing={isEditing} setEditableData={setEditableProfile} />;
             default:
                 return null;
         }
@@ -156,7 +214,6 @@ export default function ProfileDetail() {
         <div className="p-4 bg-black min-h-screen text-green-500 font-mono">
             <div className="relative border-b border-green-900 pb-5 sm:pb-0">
                 <div className="md:flex md:items-center md:justify-between">
-                    {/*insert buttons for cycling through profiles*/}
                     <button
                         onClick={toggleEditMode}
                         className="mt-2 text-sm font-medium text-green-400 hover:text-white"
@@ -169,7 +226,7 @@ export default function ProfileDetail() {
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
-                                onClick={() => setCurrentTab(tab.id)}
+                                onClick={() => setCurrentTab(tab.id as 'personal' | 'dl' | 'logs' | 'banks' | 'business')}
                                 className={`whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium ${currentTab === tab.id
                                     ? 'border-green-500 text-green-500'
                                     : 'border-transparent text-green-400 hover:border-green-500 hover:text-white'
@@ -212,3 +269,4 @@ export default function ProfileDetail() {
         </div>
     );
 }
+

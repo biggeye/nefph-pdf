@@ -2,6 +2,22 @@ import { PaperClipIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
+interface BusinessData {
+    id: number;
+    created_at: string;
+    cpn_id: string;
+    name: string;
+    dba: string;
+    ein: string;
+    formation_date?: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    type?: string;
+    payroll_provider?: string;
+}
+
 
 interface PersonalData {
     first_name: string;
@@ -534,6 +550,74 @@ export function Banks({ data, isEditing, setEditableData }: EditableProps<BankDa
                 ) : (
                     <p className="text-green-400">No bank information available.</p>
                 )}
+            </div>
+        </div>
+    );
+}
+
+export function Business({ data, isEditing, setEditableData }: EditableProps<BusinessData>) {
+    if (!data) {
+        return <p className="text-red-500">No business information available.</p>;
+    }
+
+    const handleChange = (field: keyof BusinessData, value: string) => {
+        setEditableData((prevData) => ({
+            ...prevData,
+            business: { ...prevData.business, [field]: value },
+        }));
+    };
+
+    return (
+        <div className="bg-black text-green-500 font-mono p-6 rounded-md">
+            <div className="px-4 sm:px-0">
+                <h3 className="text-lg font-bold text-green-500">Business Information</h3>
+                <p className="mt-1 max-w-2xl text-sm text-green-400">Details about the registered business entity.</p>
+            </div>
+            <div className="mt-6 space-y-8">
+                {/* Business Name Block */}
+                <div>
+                    <dt className="text-sm font-bold">Business Name</dt>
+                    {isEditing ? (
+                        <input
+                            className="mt-1 block w-full bg-black text-white"
+                            defaultValue={data.name}
+                            onChange={(e) => handleChange('name', e.target.value)}
+                        />
+                    ) : (
+                        <dd className="mt-1 text-white">{data.name}</dd>
+                    )}
+                </div>
+
+                {/* Continue similarly for other fields */}
+
+                <div>
+                    <dt className="text-sm font-bold">DBA</dt>
+                    {isEditing ? (
+                        <input
+                            className="mt-1 block w-full bg-black text-white"
+                            defaultValue={data.dba}
+                            onChange={(e) => handleChange('dba', e.target.value)}
+                        />
+                    ) : (
+                        <dd className="mt-1 text-white">{data.dba}</dd>
+                    )}
+                </div>
+
+                {/* EIN */}
+                <div>
+                    <dt className="text-sm font-bold">EIN</dt>
+                    {isEditing ? (
+                        <input
+                            className="mt-1 block w-full bg-black text-white"
+                            defaultValue={data.ein}
+                            onChange={(e) => handleChange('ein', e.target.value)}
+                        />
+                    ) : (
+                        <dd className="mt-1 text-white">{data.ein}</dd>
+                    )}
+                </div>
+
+                {/* Additional fields like formation_date, address, etc., would follow similarly */}
             </div>
         </div>
     );

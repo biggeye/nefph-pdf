@@ -12,13 +12,18 @@ interface UploadRequest {
 }
 
 export async function POST(req: Request) {
-    const { cpnId, file, fileName, fileType, description }: UploadRequest = await req.json();
+    try {
+        const { cpnId, file, fileName, fileType, description }: UploadRequest = await req.json();
 
-    // Step 1: Upload the file to Supabase storage
-    const fileUrl = await uploadFileToStorage(file, fileName);
+        // Step 1: Upload the file to Supabase storage
+        const fileUrl = await uploadFileToStorage(file, fileName);
 
-    // Step 2: Save the file reference in the assets table
-    await saveAssetToDatabase(cpnId, fileUrl, fileType, description);
+        // Step 2: Save the file reference in the assets table
+        await saveAssetToDatabase(cpnId, fileUrl, fileType, description);
+    } catch (error) {
+        console.error("Upload failed: ", error);
+        return NextResponse.json({ error });
+    }
 
-    return NextResponse.json({ message: 'File uploaded successfully', fileUrl });
+    return NextResponse.json({ message: 'File uploaded successfully' });
 }
