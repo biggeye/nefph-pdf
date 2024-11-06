@@ -20,7 +20,6 @@ export default function Dashboard() {
             try {
                 setLoading(true);
                 const { data, error } = await fetchAllProfiles();
-                if (error) throw new Error(error.message);
                 setProfiles(data || []);
             } catch (err) {
                 console.error('Error fetching profiles:', err);

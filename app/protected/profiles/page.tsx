@@ -7,14 +7,19 @@ import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import { fetchAllProfiles } from '@/utils/profiles';
 import { Profile } from '@/data/types/profiles';
 
+type SortConfig = {
+    key: keyof Profile;
+    direction: 'asc' | 'desc';
+};
+
 export default function Dashboard() {
     const supabase = createClient();
     const [profiles, setProfiles] = useState<Profile[]>([]);
     const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [isListView, setIsListView] = useState(false);
-    const [sortConfig, setSortConfig] = useState({ key: 'first_name', direction: 'asc' });
+    const [isListView, setIsListView] = useState<boolean>(false);
+    const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'first_name', direction: 'asc' });
 
     useEffect(() => {
         async function fetchProfiles() {
@@ -38,8 +43,8 @@ export default function Dashboard() {
         setExpandedProfile(expandedProfile === profileId ? null : profileId);
     };
 
-    const sortProfiles = (key) => {
-        let direction = 'asc';
+    const sortProfiles = (key: keyof Profile) => {
+        let direction: 'asc' | 'desc' = 'asc';
         if (sortConfig.key === key && sortConfig.direction === 'asc') {
             direction = 'desc';
         }
@@ -140,7 +145,6 @@ export default function Dashboard() {
                                                     {profile.first_name} {profile.last_name}
                                                 </h3>
                                             </Link>
-
                                         </td>
                                     </tr>
                                 ))}
