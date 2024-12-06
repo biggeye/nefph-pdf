@@ -3,8 +3,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Personal, DL, Logs, Banks, Business } from '@/components/profiles/ProfileTabs';
-import { fetchProfile, fetchLogs, fetchDL, fetchBanks, fetchBusiness } from '@/utils/profiles';
-import { updateProfile, updateDL, updateLogs, updateBanks, updateBusiness } from '@/utils/profiles';
+import {
+    fetchProfile,
+    fetchLogs,
+    fetchDL,
+    fetchBanks,
+    fetchBusiness,
+    updateProfile,
+    updateDL,
+    updateLogs,
+    updateBanks,
+    updateBusiness
+} from '@/utils/profiles';
 import MediaGallery from '@/components/assets/MediaGallery';
 import MediaUploader from '@/components/assets/MediaUploader';
 
@@ -68,45 +78,36 @@ interface BusinessData {
     payroll_provider?: string;
 }
 
-interface UserData {
-    personal: PersonalData | null;
-    dl: DLData | null;
-    logs: LogData[] | null;
-    banks: BankData[] | null;
-    business: BusinessData | null;
-    assets?: Asset[];
-}
-
-interface UserData {
-    personal: PersonalData | null;
-    dl: DLData | null;
-    logs: LogData[] | null;
-    banks: BankData[] | null;
-    business: BusinessData | null;
-    assets?: Asset[];
-}
-
 interface Asset {
     url: string;
     type: string;
     description?: string;
 }
 
+interface UserData {
+    personal: PersonalData | null;
+    dl: DLData | null;
+    logs: LogData[] | null;
+    banks: BankData[] | null;
+    business: BusinessData | null;
+    assets?: Asset[];
+}
+
 export default function ProfileDetail() {
-    const { id: cpn_id } = useParams();
+    const { id: cpn_id } = useParams<{ id: string }>();
     const [currentTab, setCurrentTab] = useState<'personal' | 'dl' | 'logs' | 'banks' | 'business'>('personal');
-    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState<UserData | null>(null);
     const [editableProfile, setEditableProfile] = useState<UserData | null>(null);
     const [assets, setAssets] = useState<Asset[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState(true);
 
     const tabs = [
-        { name: 'Personal', id: 'personal' },
-        { name: 'DL', id: 'dl' },
-        { name: 'Logs', id: 'logs' },
-        { name: 'Banks', id: 'banks' },
-        { name: 'Business', id: 'business' },
+        { name: 'Personal', id: 'personal' as const },
+        { name: 'DL', id: 'dl' as const },
+        { name: 'Logs', id: 'logs' as const },
+        { name: 'Banks', id: 'banks' as const },
+        { name: 'Business', id: 'business' as const },
     ];
 
     useEffect(() => {
@@ -124,11 +125,11 @@ export default function ProfileDetail() {
                 const businessResponse = await fetchBusiness(cpn_id);
 
                 const userData: UserData = {
-                    personal: profileResponse.data,
-                    logs: logsResponse.data,
-                    dl: dlResponse.data,
-                    banks: banksResponse.data,
-                    business: businessResponse.data,
+                    personal: profileResponse?.data || null,
+                    logs: logsResponse?.data || null,
+                    dl: dlResponse?.data || null,
+                    banks: banksResponse?.data || null,
+                    business: businessResponse?.data || null,
                     assets: [],
                 };
 
@@ -146,35 +147,65 @@ export default function ProfileDetail() {
 
     const toggleEditMode = () => {
         setIsEditing(!isEditing);
-        if (!isEditing) {
-            setEditableProfile(profile);
+        if (!isEditing && profile) {
+            setEditableProfile({ ...profile });
         }
     };
 
     const handleSave = async () => {
-        if (!editableProfile) return;
+        if (!editableProfile || !cpn_id) return;
 
         try {
-            if (currentTab === 'personal' && editableProfile.personal) {
-                const { data, error } = await updateProfile(cpn_id, editableProfile.personal);
-                if (error) throw new Error(error);
-                console.log('Profile updated successfully:', data);
-            } else if (currentTab === 'dl' && editableProfile.dl) {
-                await updateDL(cpn_id, editableProfile.dl);
-            } else if (currentTab === 'logs' && editableProfile.logs) {
-                await updateLogs(cpn_id, editableProfile.logs);
-            } else if (currentTab === 'banks' && editableProfile.banks) {
-                await updateBanks(cpn_id, editableProfile.banks);
-            } else if (currentTab === 'business' && editableProfile.business) {
-                await updateBusiness(cpn_id, editableProfile.business);
+            let updateResponse;
+
+            switch (currentTab) {
+                case 'personal':
+                    if (editableProfile.personal) {
+                        updateResponse = await updateProfile(cpn_id, editableProfile.personal);
+                    }
+                    break;
+                case 'dl':
+                    if (editableProfile.dl) {
+                        updateResponse = await updateDL(cpn_id, editableProfile.dl);
+                    }
+                    break;
+                case 'logs':
+                    if (editableProfile.logs) {
+                        // Assuming the third argument for logs is a specific identifier or additional data required
+                        updateResponse = await updateLogs(cpn_id, editableProfile.logs, /* thirdArgument */);
+                    }
+                    break;
+                case 'banks':
+                    if (editableProfile.banks) {
+                        // Assuming the third argument for banks is a specific identifier or additional data required
+                        updateResponse = await updateBanks(cpn_id, editableProfile.banks, /* thirdArgument */);
+                    }
+                    break;
+                case 'business':
+                    if (editableProfile.business) {
+                        updateResponse = await updateBusiness(cpn_id, editableProfile.business);
+                    }
+                    break;
+                default:
+                    console.warn('Invalid tab selection');
+                    return;
             }
 
+            // Check for error in response and log if any
+            if (updateResponse?.error) {
+                throw new Error(updateResponse.error);
+            }
+
+            // Update the profile state with the edited data if successful
             setProfile(editableProfile);
             setIsEditing(false);
+            console.log(`Profile updated successfully for ${currentTab} tab.`);
+
         } catch (error) {
             console.error('Error saving profile data:', error);
         }
     };
+
 
     const handleCancel = () => {
         setIsEditing(false);
@@ -182,7 +213,7 @@ export default function ProfileDetail() {
     };
 
     const handleMediaUpload = (newFileUrl: string) => {
-        setAssets([...assets, { url: newFileUrl, type: 'image' }]);
+        setAssets((prevAssets) => [...prevAssets, { url: newFileUrl, type: 'image' }]);
     };
 
     function renderTabContent() {
@@ -213,20 +244,18 @@ export default function ProfileDetail() {
     return (
         <div className="p-4 bg-black min-h-screen text-green-500 font-mono">
             <div className="relative border-b border-green-900 pb-5 sm:pb-0">
-                <div className="md:flex md:items-center md:justify-between">
-                    <button
-                        onClick={toggleEditMode}
-                        className="mt-2 text-sm font-medium text-green-400 hover:text-white"
-                    >
-                        {isEditing ? 'Cancel' : 'Edit Profile'}
-                    </button>
-                </div>
+                <button
+                    onClick={toggleEditMode}
+                    className="mt-2 text-sm font-medium text-green-400 hover:text-white"
+                >
+                    {isEditing ? 'Cancel' : 'Edit Profile'}
+                </button>
                 <div className="mt-4">
                     <nav className="-mb-px flex space-x-8">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
-                                onClick={() => setCurrentTab(tab.id as 'personal' | 'dl' | 'logs' | 'banks' | 'business')}
+                                onClick={() => setCurrentTab(tab.id)}
                                 className={`whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium ${currentTab === tab.id
                                     ? 'border-green-500 text-green-500'
                                     : 'border-transparent text-green-400 hover:border-green-500 hover:text-white'
@@ -269,4 +298,3 @@ export default function ProfileDetail() {
         </div>
     );
 }
-

@@ -12,7 +12,7 @@ type SortConfig = {
     direction: 'asc' | 'desc';
 };
 
-export default function Dashboard() {
+export default function Profiles() {
     const supabase = createClient();
     const [profiles, setProfiles] = useState<Profile[]>([]);
     const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
@@ -21,13 +21,14 @@ export default function Dashboard() {
     const [isListView, setIsListView] = useState<boolean>(false);
     const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'first_name', direction: 'asc' });
 
+
     useEffect(() => {
         async function fetchProfiles() {
             try {
                 setLoading(true);
                 const { data, error } = await fetchAllProfiles();
                 if (error) throw error;
-                setProfiles(data);
+                setProfiles(data || []); // Ensure data is not null
             } catch (error) {
                 console.error('Error fetching profiles:', error);
                 setError('Failed to load profiles');
@@ -38,6 +39,7 @@ export default function Dashboard() {
 
         fetchProfiles();
     }, []);
+
 
     const toggleExpand = (profileId: string) => {
         setExpandedProfile(expandedProfile === profileId ? null : profileId);
@@ -50,13 +52,19 @@ export default function Dashboard() {
         }
         setSortConfig({ key, direction });
 
-        setProfiles((prevProfiles) =>
-            [...prevProfiles].sort((a, b) => {
-                if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
-                if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
-                return 0;
-            })
-        );
+        setProfiles((prevProfiles) => {
+            if (!prevProfiles) return []; // Handle undefined or null profiles
+            return [...prevProfiles]
+                .filter((profile) => profile && profile[key] !== undefined) // Filter out invalid profiles
+                .sort((a, b) => {
+                    const valA = a[key] as string | number; // Type assertion
+                    const valB = b[key] as string | number;
+
+                    if (valA < valB) return direction === 'asc' ? -1 : 1;
+                    if (valA > valB) return direction === 'asc' ? 1 : -1;
+                    return 0;
+                });
+        });
     };
 
     if (loading) return <p className="text-green-400">Loading...</p>;
@@ -73,6 +81,14 @@ export default function Dashboard() {
                 >
                     {isListView ? 'Grid View' : 'List View'}
                 </button>
+                <Link href="./profiles/create">
+                    <button
+                        type="button"
+                        className="ml-4 rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-green-500"
+                    >
+                        Create Profile
+                    </button>
+                </Link>
             </div>
 
             {isListView ? (
@@ -118,7 +134,7 @@ export default function Dashboard() {
                             </thead>
                             <tbody className="divide-y divide-gray-800 bg-gray-900">
                                 {profiles.map((profile) => (
-                                    <tr key={profile.cpn_id}>
+                                    <tr key={profile?.cpn_id || 'unknown'}>
                                         <td className="whitespace-nowrap py-2 pl-4 text-sm sm:pl-0">
                                             <div className="flex items-center">
                                                 <img
@@ -131,14 +147,10 @@ export default function Dashboard() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="whitespace-nowrap text-sm text-gray-500">
-                                            <div className="text-gray-300">{profile.address}</div>
-                                        </td>
-                                        <td className="whitespace-nowrap text-sm text-gray-500">
-                                            <div className="text-gray-300">{profile.state}</div>
-                                        </td>
-                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-green-500">{profile.ssn}</td>
-                                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">{profile.dob}</td>
+                                        <td>{profile?.address || 'N/A'}</td>
+                                        <td>{profile?.state || 'N/A'}</td>
+                                        <td>{profile?.ssn || 'N/A'}</td>
+                                        <td>{profile?.dob || 'N/A'}</td>
                                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <Link href={`/protected/profiles/${profile.cpn_id}`}>
                                                 <h3 className="cursor-pointer truncate text-sm font-bold text-green-500 hover:text-white">

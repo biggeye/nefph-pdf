@@ -1,3 +1,4 @@
+// /data/types/profiles.ts
 
 export interface Profile {
     cpn_id: string;
@@ -11,14 +12,14 @@ export interface Profile {
     city: string;
     state: string;
     zip: string;
-    dob: string;
+    dob: string; // Date of birth
     dl_number?: string;
     site?: string;
     username?: string;
     password?: string;
     pin?: string;
     security_question?: string;
-    answer?: string;// Date of birth
+    answer?: string;
     picture_url?: string;
     role?: string;
 }
@@ -83,3 +84,19 @@ export interface Business {
     payroll_provider?: string;
 }
 
+export type MultiStepFormData = {
+    personal: Partial<Profile>;
+    dl: Partial<DL>;
+    logs: Partial<Logs>[];
+    banks: Partial<Banks>[];
+    business: Partial<Business>;
+};
+
+export type StepDataMap = {
+    personal: Partial<Profile>;
+    dl: Partial<DL>;
+    logs: Partial<Logs>[];
+    banks: Partial<Banks>[];
+    business: Partial<Business>;
+    summary: FormData;
+};

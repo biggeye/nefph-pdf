@@ -22,7 +22,7 @@ export async function fetchBusiness(cpn_id: string): Promise<{ data: Business | 
 export async function fetchProfile(cpn_id: string): Promise<{ data: Profile | null, error: string | null }> {
     try {
         const { data, error } = await supabase
-            .from('seepeeen')
+            .from('profile')
             .select('*')
             .eq('cpn_id', cpn_id)
             .single();  // Fetch a single profile
@@ -87,7 +87,7 @@ export async function fetchDL(cpn_id: string): Promise<{ data: any | null, error
 export async function fetchAllProfiles() {
     try {
         const { data, error } = await supabase
-            .from('seepeeen')
+            .from('profile')
             .select('*');
 
         if (error) throw error;
@@ -103,7 +103,7 @@ export async function fetchAllProfiles() {
 export async function updateProfile(cpn_id: string, updatedFields: Partial<Profile>): Promise<{ data: Profile | null, error: string | null }> {
     try {
         const { data, error } = await supabase
-            .from('seepeeen')
+            .from('profile')
             .update(updatedFields)
             .eq('cpn_id', cpn_id)
             .single();  // Update a single profile
@@ -255,18 +255,31 @@ export async function createBank(newEntry: Banks): Promise<{ data: Banks | null,
     }
 }
 
-export async function createProfile(newEntry: Profile): Promise<{ data: Profile | null, error: string | null }> {
-    try {
-        const { data, error } = await supabase
-            .from('business')
-            .insert(newEntry)
-            .single();  // Insert a single new entry
+// /utils/profiles.ts
 
-        if (error) throw error;
+
+export async function createProfile(newEntry: Partial<Profile>): Promise<{ data: Profile | null; error: any }> {
+    try {
+        console.log("Sending profile to Supabase: ", newEntry);
+        const { data, error } = await supabase
+            .from('profile')
+            .insert(newEntry)
+            .select() // Add .select() to retrieve the inserted data
+            .single();
+
+        if (error) {
+            console.error('Supabase error during profile creation:', error);
+            return { data: null, error };
+        }
+
+        if (!data) {
+            console.error('No data returned after profile creation.');
+            return { data: null, error: new Error('No data returned after profile creation.') };
+        }
 
         return { data: data as Profile, error: null };
     } catch (error) {
-        console.error('Error creating business row:', error);
-        return { data: null, error: 'Error creating business row' };
+        console.error('Error creating profile in createProfile function:', error);
+        return { data: null, error };
     }
 }

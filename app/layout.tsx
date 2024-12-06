@@ -15,7 +15,12 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={GeistSans.className}>
+            <head>
+                <script type="text/javascript" src="/lib/smartReader.js"></script>
+            </head>
             <body className="bg-background text-foreground">
+              
+
             <AppLayout>
                     {children} {/* This will render the contents of AppLayout */}
                 </AppLayout>
