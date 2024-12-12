@@ -7,8 +7,7 @@ import { Logs } from '@/data/types/profiles';
 
 interface LogsFormProps {
     data: Partial<Logs>[];
-    onNext: (data: Partial<Logs>[]) => void;
-    onBack: () => void;
+    onDataChange: (data: Partial<DL>) => void;
 }
 
 export default function LogsForm({ data, onNext, onBack }: LogsFormProps) {

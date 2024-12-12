@@ -7,8 +7,7 @@ import { DL } from '@/data/types/profiles';
 
 interface DLFormProps {
     data: Partial<DL>;
-    onNext: (data: Partial<DL>) => void;
-    onBack: () => void;
+    onDataChange: (data: Partial<DL>) => void;
 }
 
 export default function DLForm({ data, onNext, onBack }: DLFormProps) {

@@ -7,8 +7,7 @@ import { Business } from '@/data/types/profiles';
 
 interface BusinessFormProps {
     data: Partial<Business>;
-    onNext: (data: Partial<Business>) => void;
-    onBack: () => void;
+    onDataChange: (data: Partial<DL>) => void;
 }
 
 export default function BusinessForm({ data, onNext, onBack }: BusinessFormProps) {

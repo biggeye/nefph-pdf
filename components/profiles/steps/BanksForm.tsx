@@ -7,8 +7,7 @@ import { Banks } from '@/data/types/profiles';
 
 interface BanksFormProps {
     data: Partial<Banks>[];
-    onNext: (data: Partial<Banks>[]) => void;
-    onBack: () => void;
+    onDataChange: (data: Partial<DL>) => void;
 }
 
 export default function BanksForm({ data, onNext, onBack }: BanksFormProps) {

@@ -17,10 +17,10 @@ import DLForm from './steps/DLForm';
 import LogsForm from './steps/LogsForm';
 import BanksForm from './steps/BanksForm';
 import BusinessForm from './steps/BusinessForm';
-import Summary from './steps/Summary';
+
 
 export default function MultiTabForm() {
-    const allTabs = ['personal', 'dl', 'logs', 'banks', 'business', 'summary'] as const;
+    const allTabs = ['personal', 'dl', 'logs', 'banks', 'business'] as const;
     type Tab = typeof allTabs[number];
 
     const [activeTab, setActiveTab] = useState<Tab>('personal');
@@ -31,10 +31,6 @@ export default function MultiTabForm() {
         banks: [],
         business: {},
     });
-    const [submissionStatus, setSubmissionStatus] = useState<{
-        success: boolean;
-        message: string;
-    } | null>(null);
 
     const handleTabChange = (tab: Tab) => {
         setActiveTab(tab);
@@ -50,12 +46,57 @@ export default function MultiTabForm() {
         }));
     };
 
+    const [submissionStatus, setSubmissionStatus] = useState<{
+        success: boolean;
+        message: string;
+    } | null>(null);
+    const [validationErrors, setValidationErrors] = useState<string[]>([]);
+
+    const requiredFields: { [key in Tab]?: string[] } = {
+        personal: ['first_name', 'last_name'], // Example required fields for personal tab
+        // dl: ['licenseNumber'], // Example required fields for dl tab
+        // Add required fields for other tabs as needed
+    };
+
+    const validateFormData = () => {
+        const errors: string[] = [];
+
+        for (const tab of allTabs) {
+            const fields = requiredFields[tab];
+            if (fields) {
+                for (const field of fields) {
+                    const tabData = formData[tab] as Record<string, any>;
+                    if (!tabData[field]) {
+                        errors.push(`Field ${field} is required in ${tab} tab.`);
+                    }
+                }
+            }
+        }
+
+        setValidationErrors(errors);
+        return errors.length === 0;
+    };
+
     const handleSave = async () => {
+        if (!validateFormData()) {
+            return;
+        }
+
         try {
+            const filteredFormData = Object.fromEntries(
+                Object.entries(formData).filter(([key, value]) => {
+                    if (Array.isArray(value)) {
+                        return value.length > 0;
+                    }
+                    return Object.keys(value).length > 0;
+                })
+            );
+
+            console.log("filteredFormData", filteredFormData);
             const response = await fetch('/api/profiles/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(filteredFormData),
             });
             const result = await response.json();
 
@@ -93,6 +134,7 @@ export default function MultiTabForm() {
         });
         setActiveTab('personal');
         setSubmissionStatus(null);
+        setValidationErrors([]);
     };
 
     return (
@@ -119,6 +161,17 @@ export default function MultiTabForm() {
                             </button>
                         ))}
                     </div>
+
+                    {/* Validation Errors */}
+                    {validationErrors.length > 0 && (
+                        <div className="error-messages">
+                            {validationErrors.map((error, index) => (
+                                <div key={index} className="error-message">
+                                    {error}
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Tab Content */}
                     <div className="tab-content">
@@ -154,7 +207,6 @@ export default function MultiTabForm() {
                                 }
                             />
                         )}
-                        {activeTab === 'summary' && <Summary data={formData} />}
                     </div>
 
                     {/* Action Buttons */}
