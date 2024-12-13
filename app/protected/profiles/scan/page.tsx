@@ -1,10 +1,10 @@
 'use client'
 
-import SmartCardReader from '@/components/assets/SmartCardReader';
+// import SmartCardReader from '@/components/assets/SmartCardReader';
 
 export default function ScanProfile() {
 
     return (
-        <SmartCardReader />
+        <div>Coming Soon</div>
     );
 }
