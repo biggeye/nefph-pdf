@@ -11,9 +11,16 @@ import {
 } from '@heroicons/react/24/outline';
 import { ThemeProvider } from 'next-themes';
 import { ThemeSwitcher } from '@/components/theme-switcher';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-const navigationItems = [
+type NavigationItem = {
+    name: string;
+    href: string;
+    icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>>;
+    current?: boolean;
+};
+
+const navigationItems: NavigationItem[] = [
     { name: 'Dashboard', href: '/', icon: HomeIcon },
     { name: 'Prophylez', href: '/protected/profiles', icon: UsersIcon },
     { name: 'Barcodes', href: '/protected/barcode', icon: FolderIcon },
@@ -25,21 +32,20 @@ function classNames(...classes: string[]) {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const router = useRouter();
-    const [navigation, setNavigation] = useState(navigationItems);
+    const pathname = usePathname();
+    const [navigation, setNavigation] = useState<NavigationItem[]>(navigationItems);
 
     useEffect(() => {
-        const currentPath = router.pathname;
         setNavigation(navigationItems.map(item => ({
             ...item,
-            current: item.href === currentPath,
+            current: item.href === pathname,
         })));
-    }, [router.pathname]);
+    }, [pathname]);
 
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             {/* Mobile Sidebar */}
-            <Transition.Root show={sidebarOpen} as={Fragment}>
+            <Transition show={sidebarOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -94,7 +100,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         </Transition.Child>
                     </div>
                 </Dialog>
-            </Transition.Root>
+            </Transition>
 
             {/* Static Sidebar for Desktop */}
             <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-20 lg:flex-col bg-gray-800 border-r-4 border-black">
@@ -111,8 +117,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     ? 'bg-green-900 text-white'
                                     : 'text-green-400 hover:bg-green-900 hover:text-white',
                                 'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6'
-                            )}
-                        >
+                            )}>
                             <item.icon className="h-6 w-6" />
                             <span className="sr-only">{item.name}</span>
                         </a>
