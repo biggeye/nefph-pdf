@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import {
     Bars3Icon,
@@ -13,10 +13,10 @@ import { ThemeProvider } from 'next-themes';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { useRouter } from 'next/navigation';
 
-const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Prophylez', href: '/protected/profiles', icon: UsersIcon, current: false },
-    { name: 'Barcodes', href: '/protected/barcode', icon: FolderIcon, current: false },
+const navigationItems = [
+    { name: 'Dashboard', href: '/', icon: HomeIcon },
+    { name: 'Prophylez', href: '/protected/profiles', icon: UsersIcon },
+    { name: 'Barcodes', href: '/protected/barcode', icon: FolderIcon },
 ];
 
 function classNames(...classes: string[]) {
@@ -26,6 +26,15 @@ function classNames(...classes: string[]) {
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
+    const [navigation, setNavigation] = useState(navigationItems);
+
+    useEffect(() => {
+        const currentPath = router.pathname;
+        setNavigation(navigationItems.map(item => ({
+            ...item,
+            current: item.href === currentPath,
+        })));
+    }, [router.pathname]);
 
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
@@ -121,7 +130,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Main Content with Gradient */}
-            <main className="lg:pl-20 min-h-screen bg-gradient-to-l from-white to-gray-800 text-green-500 font-mono">
+            <main className="lg:pl-20 min-h-screen bg-gray-800 text-green-500 font-mono">
                 <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
                     {children}
                 </div>

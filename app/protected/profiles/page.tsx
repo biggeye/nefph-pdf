@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -73,22 +73,23 @@ export default function Profiles() {
     return (
         <div className="p-4 bg-gray-800 min-h-screen">
             <div className="flex justify-between items-center">
-                <h1 className="text-base font-semibold text-gray-300">Users</h1>
-                <button
-                    type="button"
-                    onClick={() => setIsListView(!isListView)}
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-500"
-                >
-                    {isListView ? 'Grid View' : 'List View'}
-                </button>
-                <Link href="./profiles/create">
+                <div className="flex items-center space-x-2">
                     <button
                         type="button"
-                        className="ml-4 rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-green-500"
+                        onClick={() => setIsListView(!isListView)}
+                        className="rounded-full bg-indigo-600 p-2 text-center text-sm font-semibold text-white hover:bg-indigo-500"
                     >
-                        Create Profile
+                        {isListView ? '🔲' : '📋'}
                     </button>
-                </Link>
+                    <Link href="./profiles/create">
+                        <button
+                            type="button"
+                            className="rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-green-500"
+                        >
+                            Create Profile
+                        </button>
+                    </Link>
+                </div>
             </div>
 
             {isListView ? (

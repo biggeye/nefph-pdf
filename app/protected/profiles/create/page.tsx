@@ -1,4 +1,4 @@
-// app/profiles/create/page.tsx
+// app/protected/profiles/create/page.tsx
 
 import MultiStepForm from '@/components/profiles/MultiStepForm';
 

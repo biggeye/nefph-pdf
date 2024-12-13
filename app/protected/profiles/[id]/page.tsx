@@ -1,3 +1,4 @@
+// (/app/protected/profiles/[id]/page.tsx)
 'use client';
 
 import { useState, useEffect } from 'react';
