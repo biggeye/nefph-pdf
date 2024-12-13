@@ -41,7 +41,7 @@ export async function POST(request: Request) {
             const dlData: DL = { ...formData.dl, cpn_id } as DL;
             const { error: dlError } = await createDL(dlData);
             if (dlError) {
-                console.error('Error creating DL:', dlError.message);
+                console.error('Error creating DL:');
                 throw dlError;
             }
         }
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
                 const logData: Logs = { ...logEntry, cpn_id } as Logs;
                 const { error: logError } = await createLog(logData);
                 if (logError) {
-                    console.error('Error creating log:', logError.message);
+                    console.error('Error creating log:');
                     throw logError;
                 }
             }
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
                 const bankData: Banks = { ...bankEntry, cpn_id } as Banks;
                 const { error: bankError } = await createBank(bankData);
                 if (bankError) {
-                    console.error('Error creating bank:', bankError.message);
+                    console.error('Error creating bank:');
                     throw bankError;
                 }
             }
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
             const businessData: Business = { ...formData.business, cpn_id } as Business;
             const { error: businessError } = await createBusiness(businessData);
             if (businessError) {
-                console.error('Error creating business:', businessError.message);
+                console.error('Error creating business:');
                 throw businessError;
             }
         }
