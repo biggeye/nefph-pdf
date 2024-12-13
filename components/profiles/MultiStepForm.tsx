@@ -2,15 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
-import {
-    StepDataMap,
-    MultiStepFormData,
-    Profile,
-    Logs,
-    DL,
-    Banks,
-    Business,
-} from '@/data/types/profiles';
+import { MultiStepFormData } from '@/data/types/profiles';
 import PersonalForm from './steps/PersonalForm';
 import DLForm from './steps/DLForm';
 import LogsForm from './steps/LogsForm';
@@ -61,9 +53,7 @@ export default function MultiTabForm() {
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
     const requiredFields: { [key in Tab]?: string[] } = {
-        personal: ['first_name', 'last_name'], // Example required fields for personal tab
-        // dl: ['licenseNumber'], // Example required fields for dl tab
-        // Add required fields for other tabs as needed
+        personal: ['first_name', 'last_name'],
     };
 
     const validateFormData = () => {
@@ -73,7 +63,10 @@ export default function MultiTabForm() {
             const fields = requiredFields[tab];
             if (fields) {
                 for (const field of fields) {
-                    const tabData = formData[tab] as Record<string, any>;
+                    const tabData = formData[tab] as Record<
+                        string,
+                        string | number | boolean | undefined
+                    >;
                     if (!tabData[field]) {
                         errors.push(`Field ${field} is required in ${tab} tab.`);
                     }
@@ -100,7 +93,7 @@ export default function MultiTabForm() {
                 })
             );
 
-            console.log("filteredFormData", filteredFormData);
+            console.log('filteredFormData', filteredFormData);
             const response = await fetch('/api/profiles/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -109,13 +102,11 @@ export default function MultiTabForm() {
             const result = await response.json();
 
             if (response.ok) {
-                // Display success message to the user
                 setSubmissionStatus({
                     success: true,
                     message: result.message || 'Profile created successfully.',
                 });
             } else {
-                // Handle error
                 console.error('Failed to create profile:', result.error);
                 setSubmissionStatus({
                     success: false,
@@ -132,7 +123,6 @@ export default function MultiTabForm() {
     };
 
     const handleCancel = () => {
-        // Reset form data or navigate away
         setFormData({
             personal: {},
             dl: {},
@@ -145,7 +135,8 @@ export default function MultiTabForm() {
         setValidationErrors([]);
     };
 
-    return (
+ 
+   return (
         <div className="p-4 bg-black min-h-screen text-green-500 font-mono">
             <div className="relative border-b border-green-900 pb-5 sm:pb-0">
                 <div className="mt-3 flex justify-end md:absolute md:right-0 md:top-3 md:mt-0">
@@ -165,6 +156,16 @@ export default function MultiTabForm() {
                     </button>
                 </div>
             </div>
+
+            {submissionStatus && (
+                <div
+                    className={`${submissionStatus.success ? 'text-green-400' : 'text-red-400'
+                        } mt-4`}
+                >
+                    {submissionStatus.message}
+                </div>
+            )}
+
             <div className="mt-4">
                 <div className="grid grid-cols-1 sm:hidden">
                     <select

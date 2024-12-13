@@ -2,46 +2,44 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Logs } from '@/data/types/profiles';
 
-interface LogsFormProps {
+type LogsFormProps = {
     data: Partial<Logs>[];
-    onDataChange: (data: Partial<DL>) => void;
-}
+    onDataChange: (data: Partial<Logs>[]) => void;
+};
 
-export default function LogsForm({ data, onNext, onBack }: LogsFormProps) {
-    const [logsData, setLogsData] = useState<Partial<Logs>[]>(data.length > 0 ? data : [{}]);
+export default function LogsForm({ data, onDataChange }: LogsFormProps) {
+    const [formData, setFormData] = useState<Partial<Logs>[]>(data);
+
+    useEffect(() => {
+        onDataChange(formData);
+    }, [formData]);
 
     const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setLogsData((prevLogs) => {
-            const newLogs = [...prevLogs];
-            newLogs[index] = {
-                ...newLogs[index],
-                [name]: value,
-            };
-            return newLogs;
-        });
+        setFormData((prev) =>
+            prev.map((item, i) => (i === index ? { ...item, [name]: value } : item))
+        );
     };
 
     const addLog = () => {
-        setLogsData((prevLogs) => [...prevLogs, {}]);
+        setFormData((prev) => [...prev, {}]);
     };
 
     const removeLog = (index: number) => {
-        setLogsData((prevLogs) => prevLogs.filter((_, i) => i !== index));
+        setFormData((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onNext(logsData);
-    };
+     };
 
     return (
         <form onSubmit={handleSubmit}>
             <h2 className="text-xl font-bold mb-4">Logs</h2>
-            {logsData.map((logEntry, index) => (
+            {formData.map((logEntry, index) => (
                 <div key={index} className="mb-4 border-b border-gray-600 pb-4">
                     <h3 className="font-semibold mb-2">Log Entry {index + 1}</h3>
                     <div>

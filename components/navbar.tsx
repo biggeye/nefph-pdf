@@ -78,8 +78,8 @@ export const NavbarItem = forwardRef(function NavbarItem(
 
 // User Profile Avatar & Dropdown Menu for Authenticated Users
 export function UserProfile() {
-    const router = useRouter()
-    const { user, isAuthenticated, login, logout } = useAuth()
+    const router = useRouter();
+    const { user, isAuthenticated, login, logout } = useAuth();
 
     return (
         <NavbarSection>
@@ -130,11 +130,11 @@ export function UserProfile() {
                     </Headless.Transition>
                 </Headless.Menu>
             ) : (
-                <button onClick={() => router.push('/login')} className="flex items-center text-sm">
+                <button onClick={login} className="flex items-center text-sm"> {/* Added `login` usage */}
                     <img src="/default-avatar.png" alt="Login" className="w-8 h-8 rounded-full" />
                     <span className="ml-2">Login</span>
                 </button>
             )}
         </NavbarSection>
-    )
+    );
 }

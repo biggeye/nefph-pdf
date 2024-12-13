@@ -1,0 +1,89 @@
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\app\api\profiles\create\route.ts[24m[0m
+[0m  [2m96:34[22m  [31merror[39m  Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\app\protected\barcode\page.tsx[24m[0m
+[0m  [2m3:20[22m  [31merror[39m  'useEffect' is defined but never used                    [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m8:12[22m  [31merror[39m  'selectedPatient' is assigned a value but never used     [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m8:29[22m  [31merror[39m  'setSelectedPatient' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\app\protected\page.tsx[24m[0m
+[0m   [2m4:8[22m   [31merror[39m  'Link' is defined but never used                      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:10[22m  [31merror[39m  'EnvelopeIcon' is defined but never used              [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:24[22m  [31merror[39m  'PhoneIcon' is defined but never used                 [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m11:11[22m  [31merror[39m  'supabase' is assigned a value but never used         [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m13:12[22m  [31merror[39m  'expandedProfile' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m22:31[22m  [31merror[39m  'error' is assigned a value but never used            [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m35:11[22m  [31merror[39m  'toggleExpand' is assigned a value but never used     [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\app\protected\profiles\page.tsx[24m[0m
+[0m   [2m6:10[22m  [31merror[39m  'EnvelopeIcon' is defined but never used           [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m6:24[22m  [31merror[39m  'PhoneIcon' is defined but never used              [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m16:11[22m  [31merror[39m  'supabase' is assigned a value but never used      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m44:11[22m  [31merror[39m  'toggleExpand' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\barcode\LicenseForm.tsx[24m[0m
+[0m  [2m4:20[22m  [31merror[39m  'useEffect' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\navbar.tsx[24m[0m
+[0m  [2m82:36[22m  [31merror[39m  'login' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\profiles\MultiStepForm.tsx[24m[0m
+[0m   [2m6:5[22m   [31merror[39m  'StepDataMap' is defined but never used                [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m8:5[22m   [31merror[39m  'Profile' is defined but never used                    [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m   [2m9:5[22m   [31merror[39m  'Logs' is defined but never used                       [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m10:5[22m   [31merror[39m  'DL' is defined but never used                         [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m11:5[22m   [31merror[39m  'Banks' is defined but never used                      [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m12:5[22m   [31merror[39m  'Business' is defined but never used                   [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m57:12[22m  [31merror[39m  'submissionStatus' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m76:69[22m  [31merror[39m  Unexpected any. Specify a different type               [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m95:51[22m  [31merror[39m  'key' is defined but never used                        [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\profiles\ProfileTabs.tsx[24m[0m
+[0m  [2m1:10[22m  [31merror[39m  'PaperClipIcon' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m2:10[22m  [31merror[39m  'useState' is defined but never used       [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\profiles\steps\BanksForm.tsx[24m[0m
+[0m  [2m13:51[22m  [31merror[39m  'onBack' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\profiles\steps\BusinessForm.tsx[24m[0m
+[0m  [2m13:54[22m  [31merror[39m  'onBack' is defined but never used                 [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m16:11[22m  [31merror[39m  'handleChange' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\profiles\steps\DLForm.tsx[24m[0m
+[0m  [2m13:48[22m  [31merror[39m  'onBack' is defined but never used                 [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m16:11[22m  [31merror[39m  'handleChange' is assigned a value but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\profiles\steps\LogsForm.tsx[24m[0m
+[0m  [2m13:50[22m  [31merror[39m  'onBack' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\components\ui\input.tsx[24m[0m
+[0m  [2m5:18[22m  [31merror[39m  An interface declaring no members is equivalent to its supertype  [2m@typescript-eslint/no-empty-object-type[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\data\finalhorizon.ts[24m[0m
+[0m  [2m1:5[22m  [31merror[39m  Parsing error: '>' expected[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\data\types\dashboard.ts[24m[0m
+[0m  [2m24:30[22m  [31merror[39m  The `{}` ("empty object") type allows any non-nullish value, including literals like `0` and `""`.[0m
+[0m- If that's what you want, disable this lint rule with an inline comment or configure the 'allowObjectTypes' rule option.[0m
+[0m- If you want a type meaning "any object", you probably want `object` instead.[0m
+[0m- If you want a type meaning "any value", you probably want `unknown` instead  [2m@typescript-eslint/no-empty-object-type[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\lib\getIINFromState.ts[24m[0m
+[0m  [2m10:8[22m  [31merror[39m  'statesData' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\tailwind.config.ts[24m[0m
+[0m  [2m77:13[22m  [31merror[39m  A `require()` style import is forbidden  [2m@typescript-eslint/no-require-imports[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\utils\profiles.ts[24m[0m
+[0m   [2m55:64[22m   [31merror[39m  Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m261:105[22m  [31merror[39m  Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\utils\supabase\middleware.ts[24m[0m
+[0m  [2m52:12[22m  [31merror[39m  'e' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\justo\source\repos\biggeye\nefph-pdf\utils\supabase\server.ts[24m[0m
+[0m  [2m20:20[22m  [31merror[39m  'error' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[31m[1m✖ 43 problems (43 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m

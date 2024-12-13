@@ -1,16 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
-import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import { fetchAllProfiles } from '@/utils/profiles';
 import { Profile } from '@/data/types/profiles';
 
 export default function Dashboard() {
-    const supabase = createClient();
     const [profiles, setProfiles] = useState<Profile[]>([]);
-    const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -31,10 +26,6 @@ export default function Dashboard() {
 
         fetchProfiles();
     }, []);
-
-    const toggleExpand = (profileId: string) => {
-        setExpandedProfile(prevId => (prevId === profileId ? null : profileId));
-    };
 
     if (loading) return <p className="text-green-400">Loading...</p>;
     if (error) return <p className="text-red-500">{error}</p>;

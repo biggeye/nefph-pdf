@@ -10,7 +10,7 @@ interface BanksFormProps {
     onDataChange: (data: Partial<DL>) => void;
 }
 
-export default function BanksForm({ data, onNext, onBack }: BanksFormProps) {
+export default function BanksForm({ data }: BanksFormProps) {
     const [banksData, setBanksData] = useState<Partial<Banks>[]>(data.length > 0 ? data : [{}]);
 
     const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {

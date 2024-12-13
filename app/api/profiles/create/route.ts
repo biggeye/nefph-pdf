@@ -9,9 +9,17 @@ import {
 } from '@/utils/profiles';
 import { Profile, DL, Logs, Banks, Business } from '@/data/types/profiles';
 
+type FormData = {
+    personal: Partial<Profile>;
+    dl?: Partial<DL>;
+    logs?: Partial<Logs>[];
+    banks?: Partial<Banks>[];
+    business?: Partial<Business>;
+};
+
 export async function POST(request: Request) {
     try {
-        const formData = await request.json();
+        const formData: FormData = await request.json();
 
         // Create profile
         const personalData: Partial<Profile> = formData.personal;
@@ -84,7 +92,11 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Failed to create profile' }, { status: 500 });
     }
 }
-
-function isPostgrestError(error: any): error is PostgrestError {
-    return error && typeof error === 'object' && 'message' in error && 'code' in error;
+function isPostgrestError(error: unknown): error is PostgrestError {
+    return (
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        'code' in error
+    );
 }

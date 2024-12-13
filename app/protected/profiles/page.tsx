@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
-import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import { fetchAllProfiles } from '@/utils/profiles';
 import { Profile } from '@/data/types/profiles';
 
@@ -13,14 +11,11 @@ type SortConfig = {
 };
 
 export default function Profiles() {
-    const supabase = createClient();
     const [profiles, setProfiles] = useState<Profile[]>([]);
-    const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [isListView, setIsListView] = useState<boolean>(false);
     const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'first_name', direction: 'asc' });
-
 
     useEffect(() => {
         async function fetchProfiles() {
@@ -39,11 +34,6 @@ export default function Profiles() {
 
         fetchProfiles();
     }, []);
-
-
-    const toggleExpand = (profileId: string) => {
-        setExpandedProfile(expandedProfile === profileId ? null : profileId);
-    };
 
     const sortProfiles = (key: keyof Profile) => {
         let direction: 'asc' | 'desc' = 'asc';

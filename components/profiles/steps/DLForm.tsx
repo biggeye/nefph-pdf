@@ -1,35 +1,40 @@
-// /components/profiles/steps/DLForm.tsx
-
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DL } from '@/data/types/profiles';
 
-interface DLFormProps {
+type DLFormProps = {
     data: Partial<DL>;
     onDataChange: (data: Partial<DL>) => void;
-}
+};
 
-export default function DLForm({ data, onNext, onBack }: DLFormProps) {
+export default function DLForm({ data, onDataChange }: DLFormProps) {
     const [formData, setFormData] = useState<Partial<DL>>(data);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+    useEffect(() => {
+        onDataChange(formData);
+    }, [formData]);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onNext(formData);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2 className="text-xl font-bold mb-4">Driver's License Information</h2>
-            {/* Add fields and handle changes */}
-
-        </form>
+        <div>
+            <label>
+                DL Number:
+                <input
+                    type="text"
+                    name="dl_number"
+                    value={formData.dl_number || ''}
+                    onChange={handleChange}
+                />
+            </label>
+            {/* Add more fields as needed */}
+        </div>
     );
 }

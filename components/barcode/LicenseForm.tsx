@@ -1,7 +1,7 @@
 'use client';
 
 import generateBarcode from 'pdf417';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const LicenseForm = () => {
     const [formData, setFormData] = useState({
