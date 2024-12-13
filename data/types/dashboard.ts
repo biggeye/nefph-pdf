@@ -21,4 +21,4 @@ export type Profile = {
 };
 
 // Props type for the Dashboard component
-export type DashboardProps = {}; // Specify any props if they are added later
+export type DashboardProps = unknown; // Specify any props if they are added later
