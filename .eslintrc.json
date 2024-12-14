@@ -1,6 +1,15 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ]
+    "extends": [
+        "next/core-web-vitals",
+        "next/typescript"
+    ],
+    "overrides": [
+        {
+            "files": [ "*.ts", "*.tsx" ],
+            "rules": {
+                // Add your TypeScript-specific rules here
+            }
+        }
+    ],
+    "reportUnusedDisableDirectives": true
 }

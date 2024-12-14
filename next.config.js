@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    swcMinify: true,
+  
     eslint: {
         // Specify directories to lint
-        dirs: ['pages', 'components', 'lib', 'utils', 'app'],
+        dirs: ['app', 'components', 'data', 'lib', 'utils'],
 
         // Fail the build if there are lint errors
         ignoreDuringBuilds: false,
