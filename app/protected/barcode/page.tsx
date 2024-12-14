@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react'; // Removed `useEffect` since it's not used
+// Removed `useEffect` since it's not used
 import LicenseForm from '@/components/barcode/LicenseForm';
 import { Heading } from '@/components/heading';
 
