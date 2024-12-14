@@ -126,10 +126,13 @@ export default function ProfileDetail() {
                 const businessResponse = await fetchBusiness(cpn_id);
 
                 const userData: UserData = {
-                    personal: profileResponse?.data || null,
-                    logs: logsResponse?.data || null,
+                    personal: profileResponse?.data ? {
+                        ...profileResponse.data,
+                        ssn: profileResponse.data.ssn || ''
+                    } : null,
+                    logs: logsResponse?.data || [],
                     dl: dlResponse?.data || null,
-                    banks: banksResponse?.data || null,
+                    banks: banksResponse?.data || [],
                     business: businessResponse?.data || null,
                     assets: [],
                 };
@@ -145,13 +148,6 @@ export default function ProfileDetail() {
 
         fetchData();
     }, [cpn_id]);
-
-    const toggleEditMode = () => {
-        setIsEditing(!isEditing);
-        if (!isEditing && profile) {
-            setEditableProfile({ ...profile });
-        }
-    };
 
     const handleSave = async () => {
         if (!editableProfile || !cpn_id) return;
@@ -172,13 +168,11 @@ export default function ProfileDetail() {
                     break;
                 case 'logs':
                     if (editableProfile.logs) {
-                        // Assuming the third argument for logs is a specific identifier or additional data required
                         updateResponse = await updateLogs(cpn_id, editableProfile.logs, /* thirdArgument */);
                     }
                     break;
                 case 'banks':
                     if (editableProfile.banks) {
-                        // Assuming the third argument for banks is a specific identifier or additional data required
                         updateResponse = await updateBanks(cpn_id, editableProfile.banks, /* thirdArgument */);
                     }
                     break;
@@ -204,6 +198,12 @@ export default function ProfileDetail() {
 
         } catch (error) {
             console.error('Error saving profile data:', error);
+        }
+    };
+    const toggleEditMode = () => {
+        setIsEditing(!isEditing);
+        if (!isEditing && profile) {
+            setEditableProfile({ ...profile });
         }
     };
 
