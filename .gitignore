@@ -43,3 +43,5 @@ echo ".vs/" >> .gitignore
 /app.txt
 /compiled_code.txt
 /newnew.txt
+
+/.ignore

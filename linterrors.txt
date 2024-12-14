@@ -3,29 +3,29 @@
 [33m13[39m:[33m12[39m  [31m[1mError[22m[39m: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  [90m[1mreact/no-unescaped-entities[22m[39m
 
 [36m./app/AppLayout.tsx[39m
-[33m108[39m:[33m21[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m108[39m:[33m21[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 
 [36m./app/layout.tsx[39m
 [33m19[39m:[33m17[39m  [31m[1mError[22m[39m: Synchronous scripts should not be used. See: https://nextjs.org/docs/messages/no-sync-scripts  [90m[1m@next/next/no-sync-scripts[22m[39m
 
 [36m./app/page.tsx[39m
 [33m19[39m:[33m103[39m  [31m[1mError[22m[39m: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  [90m[1mreact/no-unescaped-entities[22m[39m
-[33m24[39m:[33m37[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
-[33m48[39m:[33m33[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
-[33m69[39m:[33m33[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m24[39m:[33m37[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m48[39m:[33m33[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m69[39m:[33m33[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 
 [36m./app/protected/page.tsx[39m
 [33m17[39m:[33m31[39m  [31m[1mError[22m[39m: 'error' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
 
 [36m./app/protected/profiles/page.tsx[39m
-[33m131[39m:[33m49[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
-[33m179[39m:[33m33[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m131[39m:[33m49[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m179[39m:[33m33[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 
 [36m./components/assets/MediaGallery.tsx[39m
-[33m19[39m:[33m25[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m19[39m:[33m25[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 
 [36m./components/avatar.tsx[39m
-[33m48[39m:[33m15[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m48[39m:[33m15[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 [33m65[39m:[33m7[39m  [31m[1mError[22m[39m: 'classes' is never reassigned. Use 'const' instead.  [90m[1mprefer-const[22m[39m
 
 [36m./components/badge.tsx[39m
@@ -33,7 +33,7 @@
 
 [36m./components/barcode/LicenseForm.tsx[39m
 [33m302[39m:[33m54[39m  [31m[1mError[22m[39m: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  [90m[1mreact/no-unescaped-entities[22m[39m
-[33m371[39m:[33m25[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m371[39m:[33m25[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 
 [36m./components/button.tsx[39m
 [33m174[39m:[33m7[39m  [31m[1mError[22m[39m: 'classes' is never reassigned. Use 'const' instead.  [90m[1mprefer-const[22m[39m
@@ -51,8 +51,8 @@
 [36m./components/navbar.tsx[39m
 [33m27[39m:[33m9[39m  [31m[1mError[22m[39m: 'id' is never reassigned. Use 'const' instead.  [90m[1mprefer-const[22m[39m
 [33m52[39m:[33m9[39m  [31m[1mError[22m[39m: 'classes' is never reassigned. Use 'const' instead.  [90m[1mprefer-const[22m[39m
-[33m90[39m:[33m29[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
-[33m134[39m:[33m21[39m  [33m[1mWarning[22m[39m: Using `<Image>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m90[39m:[33m29[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m134[39m:[33m21[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
 
 [36m./components/profiles/MultiStepForm.tsx[39m
 [33m88[39m:[33m51[39m  [31m[1mError[22m[39m: 'key' is defined but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
@@ -114,19 +114,6 @@
 
 [36m./components/ui/input.tsx[39m
 [33m5[39m:[33m18[39m  [31m[1mError[22m[39m: An interface declaring no members is equivalent to its supertype.  [90m[1m@typescript-eslint/no-empty-object-type[22m[39m
-
-[36m./lib/getIINFromState.ts[39m
-[33m10[39m:[33m8[39m  [31m[1mError[22m[39m: 'statesData' is defined but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-
-[36m./lib/libbcmath.js[39m
-[33m207[39m:[33m13[39m  [31m[1mError[22m[39m: 'h' is defined but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m229[39m:[33m13[39m  [31m[1mError[22m[39m: 'w' is defined but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m273[39m:[33m7[39m  [31m[1mError[22m[39m: 'bcsub' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m297[39m:[33m7[39m  [31m[1mError[22m[39m: 'bcmul' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m321[39m:[33m7[39m  [31m[1mError[22m[39m: 'bcdiv' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m349[39m:[33m7[39m  [31m[1mError[22m[39m: 'bccomp' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m361[39m:[33m7[39m  [31m[1mError[22m[39m: 'bcscale' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
-[33m371[39m:[33m7[39m  [31m[1mError[22m[39m: 'bcround' is assigned a value but never used.  [90m[1m@typescript-eslint/no-unused-vars[22m[39m
 
 [36m./utils/profiles.ts[39m
 [33m55[39m:[33m64[39m  [31m[1mError[22m[39m: Unexpected any. Specify a different type.  [90m[1m@typescript-eslint/no-explicit-any[22m[39m

@@ -1,5 +1,5 @@
 import { createClient } from '@/utils/supabase/client';
-import { Business, Profiles, Profile, Logs, DL, Banks } from '@/data/types/profiles';  // Assuming these are your data types
+import { Business, Profile, Logs, DL, Banks } from '@/data/types/profiles';  // Assuming these are your data types
 
 const supabase = createClient();
 
