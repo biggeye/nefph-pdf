@@ -9,7 +9,6 @@ import {
     UsersIcon,
     FolderIcon,
 } from '@heroicons/react/24/outline';
-import { ThemeProvider } from 'next-themes';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { usePathname } from 'next/navigation';
 
@@ -43,7 +42,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     }, [pathname]);
 
     return (
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <>
             {/* Mobile Sidebar */}
             <Transition show={sidebarOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
@@ -145,7 +144,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <footer className="w-full mx-auto flex items-center justify-center border-t text-center text-xs gap-8 py-16 text-green-500 bg-black">
                 <p>&copy; 2024 b!gG3yedATa</p>
                 <ThemeSwitcher />
-            </footer>
-        </ThemeProvider>
+            </footer >
+            </>
     );
 }

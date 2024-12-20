@@ -1,5 +1,4 @@
 // app/layout.tsx
-import { GeistSans } from 'geist/font/sans';
 import './globals.css';
 import AppLayout from './AppLayout';
 
@@ -14,13 +13,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={GeistSans.className}>
-            <head>
-                <script type="text/javascript" src="/lib/smartReader.js"></script>
-            </head>
-            <body className="bg-background text-foreground">
-              
-
+        <html lang="en">
+            <body>
             <AppLayout>
                     {children} {/* This will render the contents of AppLayout */}
                 </AppLayout>
